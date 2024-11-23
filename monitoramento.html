@@ -30,7 +30,7 @@
         }
 
         .header .title {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: bold;
         }
 
@@ -47,9 +47,14 @@
             border: none;
             padding: 8px 15px;
             border-radius: 5px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
-            margin-right: 30px; /* Espaçamento ajustado */
+            margin-right: 30px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+        .header .logout:hover {
+            background-color: #e43d3d;
+            transform: scale(1.05);
         }
 
         .main-content {
@@ -65,29 +70,44 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
-            padding: 10px;
+            padding: 20px;
         }
 
         .sidebar a {
             text-decoration: none;
-            color: #007bff;
-            margin-bottom: 15px;
-            font-size: 14px;
+            color: #000000;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .sidebar a:hover {
-            text-decoration: underline;
+            background-color: #ccc;
+            color: #333; /* Contraste melhorado */
+            text-decoration: in line;
         }
 
         .left-side {
             flex: 1;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .map-container {
             height: 400px;
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .city-name {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
         }
 
         .right-sidebar {
@@ -126,6 +146,7 @@
         <!-- Lado esquerdo principal -->
         <div class="left-side">
             <div id="map" class="map-container"></div>
+            <div class="city-name">Salvador/Bahia</div>
         </div>
 
         <!-- Barra lateral direita -->
@@ -138,14 +159,12 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Inicializa o mapa com OpenStreetMap usando Leaflet.js
-        const map = L.map('map').setView([-12.9714, -38.5014], 12); // Coordenadas de Salvador, BA
+        const map = L.map('map').setView([-12.9714, -38.5014], 12);
 
-        // Adiciona os tiles do OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
-        // Adiciona um marcador em Salvador
         L.marker([-12.9714, -38.5014]).addTo(map)
             .bindPopup('Salvador, Bahia')
             .openPopup();
