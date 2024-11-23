@@ -113,11 +113,10 @@
             }
         });
 
-        // Exemplo de ação para "Esqueceu a senha?"
+        // Redirecionar para a tela de "Esqueci a Senha"
         document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
             event.preventDefault();
-            alert("Instruções para recuperação de senha enviadas por e-mail.");
-            // Aqui você pode adicionar a lógica para recuperação de senha
+            window.location.href = "redefinicao-senha.html";  // Redireciona para a página de redefinição de senha
         });
 
         // Ação para o link "Cadastrar-se"

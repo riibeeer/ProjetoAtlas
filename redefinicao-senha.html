@@ -5,114 +5,89 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redefinição de Senha</title>
     <style>
-        /* Fundo com um degradê suave de azul claro para azul escuro */
+        /* Estilo do fundo com degradê verde */
         body {
-            background: linear-gradient(135deg, #81c8f2, #1e3a56);
+            background: linear-gradient(to right, #4CAF50, #81C784);
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-            color: #fff;
         }
 
-        /* Container da redefinição de senha */
-        .reset-container {
-            background-color: rgba(0, 0, 0, 0.6); /* Fundo semitransparente para dar contraste */
-            padding: 40px;
-            border-radius: 10px;
+        /* Container do formulário */
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 400px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         h2 {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #fff;
+            color: #333;
         }
 
         p {
-            font-size: 1.1rem;
-            margin-bottom: 20px;
             text-align: center;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            box-sizing: border-box;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             font-size: 16px;
-            margin-top: 10px;
-            transition: background-color 0.3s;
+            color: #666;
+            margin-bottom: 20px;
         }
 
-        .btn:hover {
-            background-color: #45a049;
-        }
-
-        .link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
+        /* Estilo do campo de entrada */
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
             font-size: 14px;
         }
 
-        .link a {
-            color: #fff;
-            text-decoration: none;
+        /* Estilo do botão */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
-        .link a:hover {
-            text-decoration: underline;
+        button:hover {
+            background-color: #388E3C;
         }
     </style>
 </head>
 <body>
-
-    <div class="reset-container">
+    <div class="form-container">
         <h2>Redefinição de Senha</h2>
-        <p>Informe o e-mail usado na criação da conta para enviar o link de recuperação.</p>
+        <p>Informe o e-mail usado na criação da conta</p>
 
-        <!-- Formulário para a redefinição de senha -->
-        <form id="resetForm" action="#" method="post">
-            <input type="email" id="email" class="input-field" placeholder="E-mail" required>
-            <button type="submit" class="btn">Enviar link de recuperação</button>
+        <form id="redefinirForm">
+            <input type="email" id="email" name="email" placeholder="Digite seu e-mail" required>
+            <button type="submit">Enviar Link de Recuperação</button>
         </form>
-
-        <!-- Link para voltar ao login -->
-        <div class="link">
-            <a href="login.html">Voltar ao Login</a>
-        </div>
     </div>
 
     <script>
-        // Função para simular o envio do link de recuperação
-        document.getElementById('resetForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Impede o envio real do formulário
+        document.getElementById('redefinirForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
             const email = document.getElementById('email').value;
 
-            // Simulação de envio de e-mail para recuperação
-            alert("Link de recuperação enviado para o e-mail: " + email);
-            // Aqui você pode adicionar a lógica real de envio do e-mail
+            // Aqui você pode adicionar lógica para validar o e-mail ou enviar o link de recuperação
+            alert('Link de recuperação enviado para ' + email + '. Verifique sua caixa de entrada.');
+            // Redireciona para a página de login após enviar o link
+            window.location.href = "suaBunda.html"; // Redireciona para a tela de login
         });
     </script>
-
 </body>
 </html>
