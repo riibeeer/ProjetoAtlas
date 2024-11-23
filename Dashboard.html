@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        /* Estilo geral */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #A8E6CF, #4CAF50);
+            color: #fff;
+        }
+
+        /* Estilo do container do dashboard */
+        .dashboard-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 20%;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        .sidebar ul li {
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+        }
+
+        .sidebar ul li img {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Botão de alerta */
+        .alert {
+            margin-top: auto;
+            text-align: center;
+            background-color: #FF5252;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main content */
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .main-content header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .main-content header h2 {
+            font-size: 1.5rem;
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .chart {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .chart img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h1>Atlas</h1>
+            <ul>
+                <li><img src="icons/monitoring.png" alt="Monitoramento">Monitoramento em tempo real</li>
+                <li><img src="icons/reports.png" alt="Relatórios">Relatórios</li>
+                <li><img src="icons/area.png" alt="Cadastro">Cadastro de áreas de coleta</li>
+                <li><img src="icons/sensors.png" alt="Sensores">Configurações de sensores</li>
+            </ul>
+            <div class="alert">⚠️ Alerta de Resíduos!</div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header>
+                <h2>Dashboard</h2>
+                <button>Sair</button>
+            </header>
+
+            <!-- Gráficos e informações -->
+            <div class="charts">
+                <div class="chart">
+                    <h3>Evolução de volumes coletados</h3>
+                    <img src="graph1.png" alt="Gráfico 1">
+                </div>
+                <div class="chart">
+                    <h3>Região Metropolitana de Salvador</h3>
+                    <img src="map.png" alt="Mapa">
+                </div>
+                <div class="chart">
+                    <h3>Volumes de resíduos</h3>
+                    <img src="graph2.png" alt="Gráfico 2">
+                </div>
+                <div class="chart">
+                    <h3>Níveis de resíduos</h3>
+                    <img src="piechart.png" alt="Gráfico de pizza">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
