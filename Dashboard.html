@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard - Monitoramento de Resíduos</title>
     <style>
         /* Estilo geral */
         body {
@@ -103,7 +103,15 @@
             max-width: 100%;
             border-radius: 10px;
         }
+
+        /* Map container */
+        .map-container {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
     <div class="dashboard-container">
@@ -122,7 +130,7 @@
         <!-- Main Content -->
         <div class="main-content">
             <header>
-                <h2>Dashboard</h2>
+                <h2>Dashboard - Monitoramento de Resíduos</h2>
                 <button>Sair</button>
             </header>
 
@@ -134,7 +142,7 @@
                 </div>
                 <div class="chart">
                     <h3>Região Metropolitana de Salvador</h3>
-                    <img src="map.png" alt="Mapa">
+                    <div id="map" class="map-container"></div>
                 </div>
                 <div class="chart">
                     <h3>Volumes de resíduos</h3>
@@ -147,5 +155,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Inicializa o mapa com OpenStreetMap usando Leaflet.js
+        const map = L.map('map').setView([-12.9714, -38.5014], 12); // Coordenadas de Salvador, BA
+
+        // Adiciona os tiles do OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        // Adiciona um marcador em Salvador
+        L.marker([-12.9714, -38.5014]).addTo(map)
+            .bindPopup('Salvador, Bahia')
+            .openPopup();
+    </script>
 </body>
 </html>
