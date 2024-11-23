@@ -26,6 +26,9 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             width: 100%;
             max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .login-container h2 {
@@ -53,27 +56,54 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 10px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
         }
 
         .btn:hover {
             background-color: #45a049;
+            transform: scale(1.05); /* Animação de aumento */
         }
 
+        /* Estilo para os links "Cadastrar-se" e "Esqueceu a senha?" */
         .link {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 14px;
+            display: flex; /* Flexbox para alinhar os links horizontalmente */
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            gap: 20px; /* Aumentei o espaçamento entre os links */
+            width: 100%;
         }
 
         .link a {
             color: #fff;
             text-decoration: none;
+            padding: 8px 15px; /* Diminuindo o tamanho dos botões */
+            border-radius: 5px;
+            margin: 0;
+            display: inline-block;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s;
         }
 
-        .link a:hover {
-            text-decoration: underline;
+        /* Estilo para o link de "Esqueceu a senha?" */
+        .link a#forgotPasswordLink {
+            background-color: rgba(255, 255, 255, 0.4); /* Verde claro e suave */
         }
+
+        .link a#forgotPasswordLink:hover {
+            background-color: rgba(255, 255, 255, 0.6); /* Verde mais claro no hover */
+            transform: scale(1.05); /* Animação de aumento */
+        }
+
+        /* Estilo para o link de "Cadastrar-se" */
+        .link a#signupLink {
+            background-color: rgba(255, 255, 255, 0.4); /* Verde suave */
+        }
+
+        .link a#signupLink:hover {
+            background-color: rgba(255, 255, 255, 0.6); /* Verde mais claro no hover */
+            transform: scale(1.05); /* Animação de aumento */
+        }
+
     </style>
 </head>
 <body>
