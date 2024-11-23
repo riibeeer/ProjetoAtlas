@@ -30,6 +30,13 @@
         }
 
         .header .title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .header .center-title {
+            flex-grow: 1;
+            text-align: center;
             font-size: 24px;
             font-weight: bold;
         }
@@ -40,14 +47,36 @@
             border: none;
             padding: 8px 15px;
             border-radius: 5px;
-            font-size: 16px;
+            font-size: 14px;
             cursor: pointer;
+            margin-right: 30px; /* Espaçamento ajustado */
         }
 
         .main-content {
             display: flex;
             flex: 1;
             margin-top: 70px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #fff;
+            border-right: 1px solid #ddd;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #007bff;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
         }
 
         .left-side {
@@ -61,44 +90,17 @@
             margin-bottom: 20px;
         }
 
-        .sidebar {
-            width: 300px;
+        .right-sidebar {
+            width: 200px;
             background-color: #fff;
             border-left: 1px solid #ddd;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
+            padding: 10px;
         }
 
-        .sidebar a {
-            text-decoration: none;
-            color: #007bff;
-            margin-bottom: 15px;
+        .right-sidebar h2 {
             font-size: 16px;
-        }
-
-        .sidebar a:hover {
-            text-decoration: underline;
-        }
-
-        .notification {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .notification h2 {
-            margin: 0;
-            font-size: 20px;
-            font-weight: normal;
-        }
-
-        .notification .icon {
-            font-size: 24px;
-            color: #007bff;
-            cursor: pointer;
+            margin-bottom: 10px;
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -107,26 +109,28 @@
     <!-- Cabeçalho -->
     <div class="header">
         <div class="title">Atlas</div>
+        <div class="center-title">Monitoramento em tempo real</div>
         <button class="logout">Sair</button>
     </div>
 
     <!-- Conteúdo principal -->
     <div class="main-content">
-        <!-- Lado esquerdo -->
-        <div class="left-side">
-            <div class="notification">
-                <h2>Monitoramento em tempo real</h2>
-                <span class="icon">🔔</span>
-            </div>
-            <div id="map" class="map-container"></div>
-        </div>
-
-        <!-- Barra lateral -->
+        <!-- Barra lateral esquerda -->
         <div class="sidebar">
             <a href="#">Monitoramento em tempo real</a>
             <a href="#">Relatórios</a>
             <a href="#">Cadastro de áreas de coleta</a>
             <a href="#">Configurações de sensores</a>
+        </div>
+
+        <!-- Lado esquerdo principal -->
+        <div class="left-side">
+            <div id="map" class="map-container"></div>
+        </div>
+
+        <!-- Barra lateral direita -->
+        <div class="right-sidebar">
+            <h2>Indicador de volume</h2>
         </div>
     </div>
 
