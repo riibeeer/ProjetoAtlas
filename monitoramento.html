@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitoramento de Resíduos - Salvador, Bahia</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            height: 100vh;
+            color: #333;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            display: block;
+            background-color: #0056b3;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #004a99;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #007bff;
+        }
+
+        .logout {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .map-container {
+            flex: 1;
+            height: 400px;
+            background-color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            height: 300px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <div class="title">Atlas</div>
+        <a href="#" onclick="showSection('monitoring')">Monitoramento em tempo real</a>
+        <a href="#" onclick="showSection('reports')">Relatórios</a>
+        <a href="#" onclick="showSection('register')">Cadastro de áreas de coleta</a>
+        <a href="#" onclick="showSection('settings')">Configurações de sensores</a>
+        <button class="logout">Sair</button>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="content">
+        <div class="header">
+            <h1>Monitoramento de Resíduos - Salvador, Bahia</h1>
+        </div>
+
+        <!-- Mapa -->
+        <div id="map" class="map-container"></div>
+
+        <!-- Gráfico -->
+        <div class="chart-container">
+            <canvas id="residualChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&callback=initMap" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Inicializa o mapa com Salvador, Bahia
+        function initMap() {
+            const salvador = { lat: -12.9714, lng: -38.5014 };
+            const map = new google.maps.Map(document.getElementById('map'), {
+                center: salvador,
+                zoom: 12,
+            });
+
+            // Exemplo de bairros
+            const neighborhoods = [
+                { name: 'Barra', lat: -13.0048, lng: -38.5171 },
+                { name: 'Pituba', lat: -12.9994, lng: -38.4604 },
+                { name: 'Rio Vermelho', lat: -13.0102, lng: -38.4879 },
+            ];
+
+            // Adicionar marcadores no mapa
+            neighborhoods.forEach((neighborhood) => {
+                new google.maps.Marker({
+                    position: { lat: neighborhood.lat, lng: neighborhood.lng },
+                    map: map,
+                    title: neighborhood.name,
+                });
+            });
+        }
+
+        // Dados do gráfico
+        const neighborhoodsData = [
+            { name: 'Barra', volume: 150 },
+            { name: 'Pituba', volume: 120 },
+            { name: 'Rio Vermelho', volume: 100 },
+        ];
+
+        function updateChart() {
+            const ctx = document.getElementById('residualChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: neighborhoodsData.map((n) => n.name),
+                    datasets: [
+                        {
+                            label: 'Volume de Resíduos (ton)',
+                            data: neighborhoodsData.map((n) => n.volume),
+                            backgroundColor: ['#4caf50', '#ff9800', '#f44336'],
+                        },
+                    ],
+                },
+                options: {
+                    scales: {
+                        y: { beginAtZero: true },
+                    },
+                },
+            });
+        }
+
+        // Inicializa mapa e gráfico
+        window.onload = () => {
+            initMap();
+            updateChart();
+        };
+
+        // Trocar entre seções (exemplo)
+        function showSection(section) {
+            alert(`Você clicou em: ${section}`);
+        }
+    </script>
+</body>
+</html>

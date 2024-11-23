@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+    <style>
+        /* Define o estilo do corpo da página com degradê */
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, #A8E6CF, #4CAF50); /* Degradê suave de verde claro para verde escuro */
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            text-align: center;
+        }
+
+        /* Estilo para o container de login */
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.5);  /* Fundo semitransparente para contraste */
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .link {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .link a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Entrar</h2>
+        
+        <!-- Formulário de Login -->
+        <form id="loginForm" action="#" method="post">
+            <input type="text" id="username" class="input-field" placeholder="Login" required>
+            <input type="password" id="password" class="input-field" placeholder="Senha" required>
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+        
+        <!-- Links para ações adicionais -->
+        <div class="link">
+            <a href="#" id="forgotPasswordLink">Esqueceu a senha?</a>
+            <a href="#" id="signupLink">Cadastrar-se</a>
+        </div>
+    </div>
+
+    <script>
+        // Função para simular o comportamento de login
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Simulação de validação
+            if (username === "admin" && password === "1234") {
+                alert("Login bem-sucedido!");
+                // Aqui você pode redirecionar para a página principal do sistema
+                // window.location.href = "pagina_principal.html";
+            } else {
+                alert("Login ou senha incorretos.");
+            }
+        });
+
+        // Exemplo de ação para "Esqueceu a senha?"
+        document.getElementById('forgotPasswordLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            alert("Instruções para recuperação de senha enviadas por e-mail.");
+            // Aqui você pode adicionar a lógica para recuperação de senha
+        });
+
+        // Ação para o link "Cadastrar-se"
+        document.getElementById('signupLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            window.location.href = "cadastro.html";  // Redireciona para a página de cadastro
+        });
+    </script>
+
+</body>
+</html>
