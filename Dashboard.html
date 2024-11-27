@@ -5,24 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Monitoramento de Resíduos</title>
     <style>
-        /* Estilo geral */
+        /* Mesmo estilo da tela de monitoramento */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #A8E6CF, #4CAF50);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             color: #fff;
         }
 
-        /* Estilo do container do dashboard */
-        .dashboard-container {
+        /* Cabeçalho */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
             display: flex;
-            height: 100vh;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        /* Sidebar */
+        .header .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header .center-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .logout {
+            background-color: #FF5252;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 30px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .header .logout:hover {
+            background-color: #E43D3D;
+            transform: scale(1.05);
+        }
+
+        /* Layout Principal */
+        .main-content {
+            display: flex;
+            flex: 1;
+            margin-top: 70px;
+        }
+
         .sidebar {
+            width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
-            width: 20%;
             padding: 20px;
             display: flex;
             flex-direction: column;
@@ -30,59 +77,23 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
-        .sidebar h1 {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            width: 100%;
-        }
-
-        .sidebar ul li {
-            margin: 15px 0;
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-        }
-
-        .sidebar ul li img {
-            margin-right: 10px;
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Botão de alerta */
-        .alert {
-            margin-top: auto;
-            text-align: center;
-            background-color: #FF5252;
+        .sidebar a {
+            text-decoration: none;
             color: #fff;
-            padding: 10px;
-            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 18px;
             font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        /* Main content */
-        .main-content {
+        .sidebar a:hover {
+            background-color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        .left-side {
             flex: 1;
             padding: 20px;
-            overflow-y: auto;
-        }
-
-        .main-content header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .main-content header h2 {
-            font-size: 1.5rem;
         }
 
         .charts {
@@ -99,78 +110,51 @@
             text-align: center;
         }
 
-        .chart img {
-            max-width: 100%;
-            border-radius: 10px;
-        }
-
-        /* Map container */
         .map-container {
             height: 400px;
             width: 100%;
             margin-bottom: 20px;
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <div class="dashboard-container">
-        <!-- Sidebar -->
+    <div class="header">
+        <div class="title">Atlas</div>
+        <div class="center-title">Dashboard</div>
+        <button class="logout">Sair</button>
+    </div>
+
+    <div class="main-content">
+        <!-- Barra lateral esquerda -->
         <div class="sidebar">
-            <h1>Atlas</h1>
-            <ul>
-                <li><img src="icons/monitoring.png" alt="Monitoramento">Monitoramento em tempo real</li>
-                <li><img src="icons/reports.png" alt="Relatórios">Relatórios</li>
-                <li><img src="icons/area.png" alt="Cadastro">Cadastro de áreas de coleta</li>
-                <li><img src="icons/sensors.png" alt="Sensores">Configurações de sensores</li>
-            </ul>
-            <div class="alert">⚠️ Alerta de Resíduos!</div>
+            <!-- Link de redirecionamento para a tela de monitoramento -->
+            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+            <a href="#">Relatórios</a>
+            <a href="#">Cadastro de Áreas de Coleta</a>
+            <a href="#">Configurações de Sensores</a>
         </div>
 
-        <!-- Main Content -->
-        <div class="main-content">
-            <header>
-                <h2>Dashboard - Monitoramento de Resíduos</h2>
-                <button>Sair</button>
-            </header>
-
-            <!-- Gráficos e informações -->
+        <!-- Lado esquerdo principal -->
+        <div class="left-side">
             <div class="charts">
                 <div class="chart">
-                    <h3>Evolução de volumes coletados</h3>
+                    <h3>Evolução de Volumes Coletados</h3>
                     <img src="graph1.png" alt="Gráfico 1">
                 </div>
                 <div class="chart">
                     <h3>Região Metropolitana de Salvador</h3>
-                    <div id="map" class="map-container"></div>
-                </div>
-                <div class="chart">
-                    <h3>Volumes de resíduos</h3>
                     <img src="graph2.png" alt="Gráfico 2">
                 </div>
                 <div class="chart">
-                    <h3>Níveis de resíduos</h3>
-                    <img src="piechart.png" alt="Gráfico de pizza">
+                    <h3>Volumes de Resíduos</h3>
+                    <img src="graph3.png" alt="Gráfico 3">
+                </div>
+                <div class="chart">
+                    <h3>Níveis de Resíduos</h3>
+                    <img src="piechart.png" alt="Gráfico de Pizza">
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Inicializa o mapa com OpenStreetMap usando Leaflet.js
-        const map = L.map('map').setView([-12.9714, -38.5014], 12); // Coordenadas de Salvador, BA
-
-        // Adiciona os tiles do OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Adiciona um marcador em Salvador
-        L.marker([-12.9714, -38.5014]).addTo(map)
-            .bindPopup('Salvador, Bahia')
-            .openPopup();
-    </script>
 </body>
 </html>

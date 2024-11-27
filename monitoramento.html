@@ -15,13 +15,14 @@
             color: #fff;
         }
 
+        /* Cabeçalho */
         .header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: #fff;
-            color: #333;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -42,7 +43,7 @@
         }
 
         .header .logout {
-            background-color: #ff4d4d;
+            background-color: #FF5252;
             color: #fff;
             border: none;
             padding: 8px 15px;
@@ -52,11 +53,13 @@
             margin-right: 30px;
             transition: background-color 0.3s ease-in-out, transform 0.3s ease;
         }
+
         .header .logout:hover {
-            background-color: #e43d3d;
+            background-color: #E43D3D;
             transform: scale(1.05);
         }
 
+        /* Layout Principal */
         .main-content {
             display: flex;
             flex: 1;
@@ -65,17 +68,17 @@
 
         .sidebar {
             width: 200px;
-            background-color: #fff;
-            border-right: 1px solid #ddd;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
         .sidebar a {
             text-decoration: none;
-            color: #000000;
+            color: #fff;
             margin-bottom: 20px;
             font-size: 18px;
             font-weight: bold;
@@ -83,8 +86,7 @@
         }
 
         .sidebar a:hover {
-            background-color: #ccc;
-            color: #333; /* Contraste melhorado */
+            background-color: #4CAF50;
             text-decoration: underline;
         }
 
@@ -93,34 +95,30 @@
             padding: 20px;
             display: flex;
             flex-direction: column;
-            align-items: center;
-        }
-
-        .map-container {
-            height: 400px;
-            width: 100%;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .city-name {
-            font-size: 22px;
-            font-weight: bold;
-            text-align: center;
         }
 
         .right-sidebar {
             width: 200px;
-            background-color: #fff;
-            border-left: 1px solid #ddd;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+            background-color: rgba(0, 0, 0, 0.5);
             padding: 10px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
         .right-sidebar h2 {
             font-size: 16px;
             margin-bottom: 10px;
+        }
+
+        /* Mapa */
+        .map-container {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -129,7 +127,7 @@
     <!-- Cabeçalho -->
     <div class="header">
         <div class="title">Atlas</div>
-        <div class="center-title">Monitoramento em tempo real</div>
+        <div class="center-title">Monitoramento em Tempo Real</div>
         <button class="logout">Sair</button>
     </div>
 
@@ -137,21 +135,25 @@
     <div class="main-content">
         <!-- Barra lateral esquerda -->
         <div class="sidebar">
-            <a href="#">Monitoramento em tempo real</a>
+            <!-- Link de redirecionamento para monitoramento -->
+            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="#">Relatórios</a>
-            <a href="#">Cadastro de áreas de coleta</a>
-            <a href="#">Configurações de sensores</a>
+            <a href="#">Cadastro de Áreas de Coleta</a>
+            <a href="#">Configurações de Sensores</a>
         </div>
 
         <!-- Lado esquerdo principal -->
         <div class="left-side">
+            <!-- Mapa de monitoramento -->
             <div id="map" class="map-container"></div>
             <div class="city-name">Salvador/Bahia</div>
         </div>
 
         <!-- Barra lateral direita -->
         <div class="right-sidebar">
-            <h2>Indicador de volume</h2>
+            <h2>Indicador de Volume</h2>
+            <p>⚠️ Área A: Volume Crítico!</p>
+            <p>⚠️ Sensor 3: Offline</p>
         </div>
     </div>
 
@@ -161,10 +163,12 @@
         // Inicializa o mapa com OpenStreetMap usando Leaflet.js
         const map = L.map('map').setView([-12.9714, -38.5014], 12);
 
+        // Adiciona os tiles do OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
+        // Adiciona um marcador em Salvador
         L.marker([-12.9714, -38.5014]).addTo(map)
             .bindPopup('Salvador, Bahia')
             .openPopup();
