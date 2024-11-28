@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Histórico de Notificações</title>
+    <style>
+        /* Estilo semelhante ao Dashboard */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #A8E6CF, #4CAF50);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        /* Cabeçalho */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header .center-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .logout {
+            background-color: #FF5252;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 30px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .header .logout:hover {
+            background-color: #E43D3D;
+            transform: scale(1.05);
+        }
+
+        /* Layout principal */
+        .main-content {
+            display: flex;
+            flex: 1;
+            margin-top: 70px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        .left-side {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .notification-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .notification {
+            padding: 15px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .notification.read {
+            opacity: 0.6;
+        }
+
+        .notification .text {
+            flex: 1;
+        }
+
+        .notification button {
+            margin-left: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .notification button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="title">Atlas</div>
+        <div class="center-title">Histórico de Notificações</div>
+        <button class="logout">Sair</button>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-content">
+        <!-- Barra lateral esquerda -->
+        <div class="sidebar">
+            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+            <a href="telaRelatorio.html">Relatórios</a>
+            <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
+            <a href="#">Configurações de Sensores</a>
+        </div>
+
+        <!-- Lado esquerdo principal -->
+        <div class="left-side">
+            <div class="notification-container" id="notificationContainer">
+                <!-- Notificações serão adicionadas aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const notifications = [
+            { id: 1, text: "Sensor 1 está offline", read: false },
+            { id: 2, text: "Novo relatório disponível", read: true },
+            { id: 3, text: "Limite de resíduos ultrapassado", read: false },
+            { id: 4, text: "Atualização no sistema concluída", read: true },
+        ];
+
+        const container = document.getElementById('notificationContainer');
+
+        function renderNotifications() {
+            container.innerHTML = '';
+            notifications.forEach(notification => {
+                const div = document.createElement('div');
+                div.className = `notification ${notification.read ? 'read' : ''}`;
+                div.innerHTML = `
+                    <div class="text">${notification.text}</div>
+                    <div>
+                        <button onclick="markAsRead(${notification.id})">${notification.read ? 'Marcar como Não Lida' : 'Marcar como Lida'}</button>
+                        <button onclick="archiveNotification(${notification.id})">Arquivar</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function markAsRead(id) {
+            const notification = notifications.find(n => n.id === id);
+            notification.read = !notification.read;
+            renderNotifications();
+        }
+
+        function archiveNotification(id) {
+            const index = notifications.findIndex(n => n.id === id);
+            notifications.splice(index, 1);
+            renderNotifications();
+        }
+
+        renderNotifications();
+    </script>
+</body>
+</html>

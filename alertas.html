@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Central de Alertas</title>
+    <style>
+        /* Estilo semelhante ao Dashboard */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #FFABAB, #FF6F6F);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        /* Cabeçalho */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header .center-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .logout {
+            background-color: #FF5252;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 30px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .header .logout:hover {
+            background-color: #E43D3D;
+            transform: scale(1.05);
+        }
+
+        /* Layout principal */
+        .main-content {
+            display: flex;
+            flex: 1;
+            margin-top: 70px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #FF6F6F;
+            text-decoration: underline;
+        }
+
+        .left-side {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .alert-container {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 700px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .alert {
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+        }
+
+        .alert.pending {
+            border-left: 5px solid #FFC107;
+        }
+
+        .alert.resolved {
+            border-left: 5px solid #4CAF50;
+        }
+
+        .alert .text {
+            flex: 1;
+        }
+
+        .alert button {
+            margin-left: 10px;
+            background-color: #FF5252;
+            border: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .alert button:hover {
+            background-color: #FF3030;
+            transform: scale(1.05);
+        }
+
+        .download {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .download button {
+            background-color: #4CAF50;
+            border: none;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .download button:hover {
+            background-color: #45A049;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="title">Atlas</div>
+        <div class="center-title">Central de Alertas</div>
+        <button class="logout">Sair</button>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="main-content">
+        <!-- Barra lateral esquerda -->
+        <div class="sidebar">
+            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+            <a href="telaRelatorio.html">Relatórios</a>
+            <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
+            <a href="#">Configurações de Sensores</a>
+        </div>
+
+        <!-- Lado esquerdo principal -->
+        <div class="left-side">
+            <div class="alert-container" id="alertContainer">
+                <!-- Alertas serão adicionados dinamicamente -->
+            </div>
+            <div class="download">
+                <button onclick="downloadAlerts()">Baixar Registro de Alertas</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const alerts = [
+            { id: 1, text: "Volume crítico no Sensor 3", status: "pending" },
+            { id: 2, text: "Operação atrasada na Área 2", status: "pending" },
+            { id: 3, text: "Falha no Sensor 5", status: "resolved" },
+        ];
+
+        const container = document.getElementById('alertContainer');
+
+        function renderAlerts() {
+            container.innerHTML = '';
+            alerts.forEach(alert => {
+                const div = document.createElement('div');
+                div.className = `alert ${alert.status}`;
+                div.innerHTML = `
+                    <div class="text">${alert.text}</div>
+                    <div>
+                        <button onclick="resolveAlert(${alert.id})">${alert.status === 'pending' ? 'Resolver' : 'Reabrir'}</button>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function resolveAlert(id) {
+            const alert = alerts.find(a => a.id === id);
+            alert.status = alert.status === 'pending' ? 'resolved' : 'pending';
+            renderAlerts();
+        }
+
+        function downloadAlerts() {
+            const csvContent = "data:text/csv;charset=utf-8," + alerts.map(a => `${a.id},${a.text},${a.status}`).join("\n");
+            const link = document.createElement("a");
+            link.setAttribute("href", encodeURI(csvContent));
+            link.setAttribute("download", "alertas.csv");
+            link.click();
+        }
+
+        renderAlerts();
+    </script>
+</body>
+</html>
