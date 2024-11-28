@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Configuração de Sensores</title>
+    <style>
+        /* Estilos da página */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #A8E6CF, #4CAF50);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: #fff;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .title {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .header .center-title {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header .logout {
+            background-color: #FF5252;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-right: 30px;
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease;
+        }
+
+        .header .logout:hover {
+            background-color: #E43D3D;
+            transform: scale(1.05);
+        }
+
+        .main-content {
+            display: flex;
+            flex: 1;
+            margin-top: 70px;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .sidebar a {
+            text-decoration: none;
+            color: #fff;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar a:hover {
+            background-color: #4CAF50;
+            text-decoration: underline;
+        }
+
+        .left-side {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .sensor-form {
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .sensor-form label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .sensor-form input, .sensor-form select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .sensor-form button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .sensor-form button:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff;
+        }
+
+        table th, table td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #ddd;
+            color: #333;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="title">Atlas</div>
+    <div class="center-title">Configuração de Sensores</div>
+    <button class="logout">Sair</button>
+</div>
+
+<div class="main-content">
+    <!-- Barra lateral esquerda -->
+    <div class="sidebar">
+        <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+        <a href="telaRelatorio.html">Relatórios</a>
+        <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
+        <a href="configsensores.html">Configurações de Sensores</a>
+    </div>
+
+    <!-- Lado esquerdo principal -->
+    <div class="left-side">
+        <h2>Cadastro e Configuração de Sensores</h2>
+
+        <!-- Formulário de Cadastro de Sensores -->
+        <div class="sensor-form">
+            <h3>Cadastro de Sensor</h3>
+            <form id="sensorForm">
+                <label for="sensorType">Tipo de Sensor:</label>
+                <select id="sensorType">
+                    <option value="temperatura">Temperatura</option>
+                    <option value="umidade">Umidade</option>
+                    <option value="gás">Gás</option>
+                </select>
+
+                <label for="sensorModel">Modelo:</label>
+                <input type="text" id="sensorModel" placeholder="Modelo do Sensor">
+
+                <label for="sensorLocation">Localização:</label>
+                <input type="text" id="sensorLocation" placeholder="Localização do Sensor">
+
+                <label for="sensorInterval">Intervalo de Coleta (em minutos):</label>
+                <input type="number" id="sensorInterval" placeholder="Exemplo: 15" min="1">
+
+                <button type="submit">Cadastrar Sensor</button>
+            </form>
+        </div>
+
+        <!-- Tabela de Sensores Cadastrados -->
+        <h3>Sensores Cadastrados</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Modelo</th>
+                    <th>Localização</th>
+                    <th>Intervalo de Coleta</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="sensorTableBody">
+                <!-- As linhas dos sensores cadastrados vão aparecer aqui dinamicamente -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    // Função para adicionar um novo sensor
+    document.getElementById('sensorForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Pegando os dados inseridos no formulário
+        const sensorType = document.getElementById('sensorType').value;
+        const sensorModel = document.getElementById('sensorModel').value;
+        const sensorLocation = document.getElementById('sensorLocation').value;
+        const sensorInterval = document.getElementById('sensorInterval').value;
+
+        // Selecionando o corpo da tabela onde os sensores serão adicionados
+        const tableBody = document.getElementById("sensorTableBody");
+
+        // Criando uma nova linha
+        const newRow = document.createElement("tr");
+
+        // Inserindo os dados na nova linha
+        newRow.innerHTML = `
+            <td>${sensorType}</td>
+            <td>${sensorModel}</td>
+            <td>${sensorLocation}</td>
+            <td>${sensorInterval} min</td>
+            <td><button onclick="editSensor(this)">Editar</button><button onclick="removeSensor(this)">Remover</button></td>
+        `;
+
+        // Adicionando a nova linha na tabela
+        tableBody.appendChild(newRow);
+
+        // Limpando os campos do formulário
+        document.getElementById('sensorForm').reset();
+    });
+
+// Função para remover um sensor
+function removeSensor(button) {
+    const row = button.parentElement.parentElement; // Seleciona a linha do botão
+    row.remove(); // Remove a linha da tabela
+}
+
+// Função para editar um sensor
+function editSensor(button) {
+    const row = button.parentElement.parentElement; // Seleciona a linha do sensor
+    const cells = row.getElementsByTagName("td"); // Seleciona as células da linha
+
+    // Preenche o modal com os dados do sensor
+    document.getElementById('editSensorType').value = cells[0].innerText;
+    document.getElementById('editSensorModel').value = cells[1].innerText;
+    document.getElementById('editSensorLocation').value = cells[2].innerText;
+    document.getElementById('editSensorInterval').value = cells[3].innerText.split(" ")[0]; // Remove a palavra "min"
+
+    // Armazena a linha para atualizar depois
+    currentRow = row;
+
+    // Exibe o modal de edição
+    document.getElementById('editModal').style.display = 'flex';
+}
+
+// Função para salvar as alterações feitas em um sensor
+function saveSensorChanges() {
+    const newType = document.getElementById('editSensorType').value;
+    const newModel = document.getElementById('editSensorModel').value;
+    const newLocation = document.getElementById('editSensorLocation').value;
+    const newInterval = document.getElementById('editSensorInterval').value + " min";
+
+    // Atualiza os dados na tabela
+    currentRow.cells[0].innerText = newType;
+    currentRow.cells[1].innerText = newModel;
+    currentRow.cells[2].innerText = newLocation;
+    currentRow.cells[3].innerText = newInterval;
+
+    // Fecha o modal de edição
+    closeModal();
+}
+
+// Função para fechar o modal sem salvar
+function closeModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+</script>
+
+<!-- Modal de Edição de Sensor -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>Editar Sensor</h3>
+        <label for="editSensorType">Tipo de Sensor:</label>
+        <select id="editSensorType">
+            <option value="temperatura">Temperatura</option>
+            <option value="umidade">Umidade</option>
+            <option value="gás">Gás</option>
+        </select>
+
+        <label for="editSensorModel">Modelo:</label>
+        <input type="text" id="editSensorModel" placeholder="Modelo do Sensor">
+
+        <label for="editSensorLocation">Localização:</label>
+        <input type="text" id="editSensorLocation" placeholder="Localização do Sensor">
+
+        <label for="editSensorInterval">Intervalo de Coleta (em minutos):</label>
+        <input type="number" id="editSensorInterval" placeholder="Exemplo: 15" min="1">
+
+        <button onclick="saveSensorChanges()">Salvar Alterações</button>
+        <button onclick="closeModal()" class="modal-close">Fechar</button>
+    </div>
+</div>
+
+</body>
+</html>
