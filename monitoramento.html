@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoramento de Resíduos - Salvador, Bahia</title>
+    <title>Monitoramento em Tempo Real</title>
     <style>
+        /* Estilos gerais */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -59,13 +60,14 @@
             transform: scale(1.05);
         }
 
-        /* Layout Principal */
+        /* Layout principal */
         .main-content {
             display: flex;
             flex: 1;
             margin-top: 70px;
         }
 
+        /* Barra lateral esquerda */
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -77,7 +79,7 @@
         }
 
         .sidebar a {
-            text-decoration: none;
+            text-decoration: none; /* Remove o sublinhado padrão */
             color: #fff;
             margin-bottom: 20px;
             font-size: 18px;
@@ -87,16 +89,33 @@
 
         .sidebar a:hover {
             background-color: #4CAF50;
-            text-decoration: underline;
+            text-decoration: none; /* Garante que o sublinhado não apareça no hover */
         }
 
+        /* Lado esquerdo principal */
         .left-side {
             flex: 1;
             padding: 20px;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
+        .map-container {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .city-name {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* Barra lateral direita */
         .right-sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -111,67 +130,54 @@
             font-size: 16px;
             margin-bottom: 10px;
         }
-
-        /* Mapa */
-        .map-container {
-            height: 400px;
-            width: 100%;
-            margin-bottom: 10px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <div class="header">
-        <div class="title">Atlas</div>
-        <div class="center-title">Monitoramento em Tempo Real</div>
-        <button class="logout">Sair</button>
+
+<div class="header">
+    <div class="title">Atlas</div>
+    <div class="center-title">Monitoramento em Tempo Real</div>
+    <button class="logout">Sair</button>
+</div>
+
+<div class="main-content">
+    <!-- Barra lateral esquerda -->
+    <div class="sidebar">
+        <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+        <a href="telaRelatorio.html">Relatórios</a>
+        <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
+        <a href="configsensores.html">Configurações de Sensores</a>
     </div>
 
-    <!-- Conteúdo principal -->
-    <div class="main-content">
-        <!-- Barra lateral esquerda -->
-        <div class="sidebar">
-            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
-            <a href="telaRelatorio.html">Relatórios</a> <!-- Redireciona para a tela de relatórios -->
-            <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
-            <a href="configsensores.html">Configurações de Sensores</a>
-        </div>
-
-
-        <!-- Lado esquerdo principal -->
-        <div class="left-side">
-            <!-- Mapa de monitoramento -->
-            <div id="map" class="map-container"></div>
-            <div class="city-name">Salvador/Bahia</div>
-        </div>
-
-        <!-- Barra lateral direita -->
-        <div class="right-sidebar">
-            <h2>Indicador de Volume</h2>
-            <p>⚠️ Área A: Volume Crítico!</p>
-            <p>⚠️ Sensor 3: Offline</p>
-        </div>
+    <!-- Lado esquerdo principal -->
+    <div class="left-side">
+        <div id="map" class="map-container"></div>
+        <div class="city-name">Salvador/Bahia</div>
     </div>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Inicializa o mapa com OpenStreetMap usando Leaflet.js
-        const map = L.map('map').setView([-12.9714, -38.5014], 12);
+    <!-- Barra lateral direita -->
+    <div class="right-sidebar">
+        <h2>Indicador de volume</h2>
+        <p>Alta: 40%</p>
+        <p>Média: 35%</p>
+        <p>Baixa: 25%</p>
+    </div>
+</div>
 
-        // Adiciona os tiles do OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    // Inicializa o mapa com OpenStreetMap usando Leaflet.js
+    const map = L.map('map').setView([-12.9714, -38.5014], 12);
 
-        // Adiciona um marcador em Salvador
-        L.marker([-12.9714, -38.5014]).addTo(map)
-            .bindPopup('Salvador, Bahia')
-            .openPopup();
-    </script>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([-12.9714, -38.5014]).addTo(map)
+        .bindPopup('Salvador, Bahia')
+        .openPopup();
+</script>
+
 </body>
 </html>
