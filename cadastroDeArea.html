@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Monitoramento de Resíduos</title>
+    <title>Cadastro de Áreas - Salvador, Bahia</title>
     <style>
-        /* Estilos do dashboard */
+        /* Estilo semelhante ao Dashboard */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,6 +16,7 @@
             color: #fff;
         }
 
+        /* Cabeçalho */
         .header {
             position: fixed;
             top: 0;
@@ -95,44 +96,85 @@
             padding: 20px;
         }
 
-        .charts {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .chart {
+        .form-container {
             background: rgba(255, 255, 255, 0.2);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
             text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .form-container input {
+            width: 100%; /* Largura completa */
+            padding: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-container button {
+            width: 100%; /* Largura consistente */
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .form-container button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
         }
 
         .right-sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
+            padding: 20px;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
         }
 
         .right-sidebar h2 {
-            font-size: 16px;
+            font-size: 18px;
             margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .area-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: #fff;
+        }
+
+        .area-list li {
+            padding: 5px;
+            margin-bottom: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <!-- Cabeçalho -->
     <div class="header">
         <div class="title">Atlas</div>
-        <div class="center-title">Dashboard</div>
+        <div class="center-title">Cadastro de Áreas</div>
         <button class="logout">Sair</button>
     </div>
 
+    <!-- Conteúdo principal -->
     <div class="main-content">
         <!-- Barra lateral esquerda -->
         <div class="sidebar">
@@ -144,59 +186,37 @@
 
         <!-- Lado esquerdo principal -->
         <div class="left-side">
-            <!-- Gráficos interativos -->
-            <div class="charts">
-                <div class="chart">
-                    <h3>Volume de Resíduos Coletados</h3>
-                    <canvas id="volumeChart"></canvas>
-                </div>
-                <div class="chart">
-                    <h3>Tipos de Resíduos</h3>
-                    <canvas id="typesChart"></canvas>
-                </div>
+            <div class="form-container">
+                <h2>Cadastro de Área</h2>
+                <input type="text" id="areaName" placeholder="Nome da Área">
+                <button onclick="addArea()">Adicionar</button>
             </div>
         </div>
 
         <!-- Barra lateral direita -->
         <div class="right-sidebar">
-            <h2>Indicadores</h2>
-            <p>Eficiência das Coletas: 85%</p>
-            <p>Resíduos Críticos: 5%</p>
+            <h2>Áreas Cadastradas</h2>
+            <ul id="areaList" class="area-list"></ul>
         </div>
     </div>
 
+    <!-- Scripts -->
     <script>
-        // Exemplo de gráfico de volume de resíduos coletados
-        const volumeCtx = document.getElementById('volumeChart').getContext('2d');
-        const volumeChart = new Chart(volumeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], // Exemplo de meses
-                datasets: [{
-                    label: 'Volume de Resíduos',
-                    data: [120, 150, 180, 220, 160], // Exemplo de dados
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            }
-        });
+        function addArea() {
+            const areaName = document.getElementById('areaName').value;
 
-        // Exemplo de gráfico de tipos de resíduos
-        const typesCtx = document.getElementById('typesChart').getContext('2d');
-        const typesChart = new Chart(typesCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Plástico', 'Vidro', 'Orgânico', 'Metal'],
-                datasets: [{
-                    label: 'Tipos de Resíduos',
-                    data: [40, 20, 30, 10], // Exemplo de distribuição
-                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
-                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
-                    borderWidth: 1
-                }]
+            if (areaName) {
+                const areaList = document.getElementById('areaList');
+                const listItem = document.createElement('li');
+                listItem.textContent = areaName;
+                areaList.appendChild(listItem);
+
+                // Limpar o campo
+                document.getElementById('areaName').value = '';
+            } else {
+                alert('Preencha o campo "Nome da Área"!');
             }
-        });
+        }
     </script>
 </body>
 </html>
