@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Monitoramento de Resíduos</title>
     <style>
-        /* Mesmo estilo da tela de monitoramento */
+        /* Estilos do dashboard */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +16,6 @@
             color: #fff;
         }
 
-        /* Cabeçalho */
         .header {
             position: fixed;
             top: 0;
@@ -60,7 +59,7 @@
             transform: scale(1.05);
         }
 
-        /* Layout Principal */
+        /* Layout principal */
         .main-content {
             display: flex;
             flex: 1;
@@ -110,12 +109,22 @@
             text-align: center;
         }
 
-        .map-container {
-            height: 400px;
-            width: 100%;
-            margin-bottom: 20px;
+        .right-sidebar {
+            width: 200px;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .right-sidebar h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
         }
     </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="header">
@@ -127,34 +136,67 @@
     <div class="main-content">
         <!-- Barra lateral esquerda -->
         <div class="sidebar">
-            <!-- Link de redirecionamento para a tela de monitoramento -->
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
-            <a href="#">Relatórios</a>
-            <a href="#">Cadastro de Áreas de Coleta</a>
+            <a href="telaRelatorio.html">Relatórios</a>
+            <a href="cadastro.html">Cadastro de Áreas de Coleta</a>
             <a href="#">Configurações de Sensores</a>
         </div>
 
         <!-- Lado esquerdo principal -->
         <div class="left-side">
+            <!-- Gráficos interativos -->
             <div class="charts">
                 <div class="chart">
-                    <h3>Evolução de Volumes Coletados</h3>
-                    <img src="graph1.png" alt="Gráfico 1">
+                    <h3>Volume de Resíduos Coletados</h3>
+                    <canvas id="volumeChart"></canvas>
                 </div>
                 <div class="chart">
-                    <h3>Região Metropolitana de Salvador</h3>
-                    <img src="graph2.png" alt="Gráfico 2">
-                </div>
-                <div class="chart">
-                    <h3>Volumes de Resíduos</h3>
-                    <img src="graph3.png" alt="Gráfico 3">
-                </div>
-                <div class="chart">
-                    <h3>Níveis de Resíduos</h3>
-                    <img src="piechart.png" alt="Gráfico de Pizza">
+                    <h3>Tipos de Resíduos</h3>
+                    <canvas id="typesChart"></canvas>
                 </div>
             </div>
         </div>
+
+        <!-- Barra lateral direita -->
+        <div class="right-sidebar">
+            <h2>Indicadores</h2>
+            <p>Eficiência das Coletas: 85%</p>
+            <p>Resíduos Críticos: 5%</p>
+        </div>
     </div>
+
+    <script>
+        // Exemplo de gráfico de volume de resíduos coletados
+        const volumeCtx = document.getElementById('volumeChart').getContext('2d');
+        const volumeChart = new Chart(volumeCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], // Exemplo de meses
+                datasets: [{
+                    label: 'Volume de Resíduos',
+                    data: [120, 150, 180, 220, 160], // Exemplo de dados
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        // Exemplo de gráfico de tipos de resíduos
+        const typesCtx = document.getElementById('typesChart').getContext('2d');
+        const typesChart = new Chart(typesCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Plástico', 'Vidro', 'Orgânico', 'Metal'],
+                datasets: [{
+                    label: 'Tipos de Resíduos',
+                    data: [40, 20, 30, 10], // Exemplo de distribuição
+                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
+                    borderWidth: 1
+                }]
+            }
+        });
+    </script>
 </body>
 </html>
