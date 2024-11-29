@@ -214,9 +214,15 @@
                 // Limpar o campo
                 document.getElementById('areaName').value = '';
             } else {
-                alert('Preencha o campo "Nome da Área"!');
+                alert('Preencha o campo "Nome da Área"!'); 
             }
         }
+
+        // Função para fazer o botão de "Sair" funcionar
+        document.querySelector('.logout').addEventListener('click', function() {
+            // Redireciona para a página de login
+            window.location.href = 'login.html';  // Altere 'login.html' conforme o nome correto da sua página de login
+        });
     </script>
 </body>
 </html>

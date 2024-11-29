@@ -87,7 +87,7 @@
 
         .sidebar a:hover {
             background-color: #4CAF50;
-            text-decoration: none   ;
+            text-decoration: none;
         }
 
         .left-side {
@@ -130,7 +130,7 @@
     <div class="header">
         <div class="title">Atlas</div>
         <div class="center-title">Dashboard</div>
-        <button class="logout">Sair</button>
+        <button class="logout" id="logoutButton">Sair</button>
     </div>
 
     <div class="main-content">
@@ -196,6 +196,11 @@
                     borderWidth: 1
                 }]
             }
+        });
+
+        // Lógica para o botão de sair
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            window.location.href = 'login.html'; // Redireciona para a página de login
         });
     </script>
 </body>

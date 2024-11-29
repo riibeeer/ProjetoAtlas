@@ -148,7 +148,7 @@
     <div class="header">
         <div class="title">Atlas</div>
         <div class="center-title">Histórico de Notificações</div>
-        <button class="logout">Sair</button>
+        <button class="logout" id="logoutButton">Sair</button>
     </div>
 
     <!-- Conteúdo principal -->
@@ -207,6 +207,11 @@
             notifications.splice(index, 1);
             renderNotifications();
         }
+
+        // Redirecionar para login quando clicar no botão de sair
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            window.location.href = 'login.html'; // Redireciona para a página de login
+        });
 
         renderNotifications();
     </script>

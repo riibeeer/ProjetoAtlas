@@ -65,6 +65,7 @@
             margin-top: 70px;
         }
 
+        /* Barra lateral esquerda */
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -89,6 +90,7 @@
             text-decoration: none;
         }
 
+        /* Lado esquerdo principal */
         .left-side {
             flex: 1;
             padding: 20px;
@@ -252,51 +254,57 @@
         document.getElementById('sensorForm').reset();
     });
 
-// Função para remover um sensor
-function removeSensor(button) {
-    const row = button.parentElement.parentElement; // Seleciona a linha do botão
-    row.remove(); // Remove a linha da tabela
-}
+    // Função para remover um sensor
+    function removeSensor(button) {
+        const row = button.parentElement.parentElement; // Seleciona a linha do botão
+        row.remove(); // Remove a linha da tabela
+    }
 
-// Função para editar um sensor
-function editSensor(button) {
-    const row = button.parentElement.parentElement; // Seleciona a linha do sensor
-    const cells = row.getElementsByTagName("td"); // Seleciona as células da linha
+    // Função para editar um sensor
+    function editSensor(button) {
+        const row = button.parentElement.parentElement; // Seleciona a linha do sensor
+        const cells = row.getElementsByTagName("td"); // Seleciona as células da linha
 
-    // Preenche o modal com os dados do sensor
-    document.getElementById('editSensorType').value = cells[0].innerText;
-    document.getElementById('editSensorModel').value = cells[1].innerText;
-    document.getElementById('editSensorLocation').value = cells[2].innerText;
-    document.getElementById('editSensorInterval').value = cells[3].innerText.split(" ")[0]; // Remove a palavra "min"
+        // Preenche o modal com os dados do sensor
+        document.getElementById('editSensorType').value = cells[0].innerText;
+        document.getElementById('editSensorModel').value = cells[1].innerText;
+        document.getElementById('editSensorLocation').value = cells[2].innerText;
+        document.getElementById('editSensorInterval').value = cells[3].innerText.split(" ")[0]; // Remove a palavra "min"
 
-    // Armazena a linha para atualizar depois
-    currentRow = row;
+        // Armazena a linha para atualizar depois
+        currentRow = row;
 
-    // Exibe o modal de edição
-    document.getElementById('editModal').style.display = 'flex';
-}
+        // Exibe o modal de edição
+        document.getElementById('editModal').style.display = 'flex';
+    }
 
-// Função para salvar as alterações feitas em um sensor
-function saveSensorChanges() {
-    const newType = document.getElementById('editSensorType').value;
-    const newModel = document.getElementById('editSensorModel').value;
-    const newLocation = document.getElementById('editSensorLocation').value;
-    const newInterval = document.getElementById('editSensorInterval').value + " min";
+    // Função para salvar as alterações feitas em um sensor
+    function saveSensorChanges() {
+        const newType = document.getElementById('editSensorType').value;
+        const newModel = document.getElementById('editSensorModel').value;
+        const newLocation = document.getElementById('editSensorLocation').value;
+        const newInterval = document.getElementById('editSensorInterval').value + " min";
 
-    // Atualiza os dados na tabela
-    currentRow.cells[0].innerText = newType;
-    currentRow.cells[1].innerText = newModel;
-    currentRow.cells[2].innerText = newLocation;
-    currentRow.cells[3].innerText = newInterval;
+        // Atualiza os dados na tabela
+        currentRow.cells[0].innerText = newType;
+        currentRow.cells[1].innerText = newModel;
+        currentRow.cells[2].innerText = newLocation;
+        currentRow.cells[3].innerText = newInterval;
 
-    // Fecha o modal de edição
-    closeModal();
-}
+        // Fecha o modal de edição
+        closeModal();
+    }
 
-// Função para fechar o modal sem salvar
-function closeModal() {
-    document.getElementById('editModal').style.display = 'none';
-}
+    // Função para fechar o modal sem salvar
+    function closeModal() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    // Ação do botão de logout
+    document.querySelector('.logout').addEventListener('click', function() {
+        // Redirecionar para a página de login
+        window.location.href = 'login.html';  // Troque 'login.html' pelo nome correto da sua página de login
+    });
 </script>
 
 <!-- Modal de Edição de Sensor -->

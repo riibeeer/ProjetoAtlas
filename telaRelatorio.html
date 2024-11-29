@@ -160,7 +160,7 @@
 <div class="header">
     <div class="title">Atlas</div>
     <div class="center-title">Relatórios</div>
-    <button class="logout">Sair</button>
+    <button class="logout" id="logoutButton">Sair</button>
 </div>
 
 <div class="main-content">
@@ -262,7 +262,13 @@
             }]
         }
     });
+
+    // Redirecionar para login quando clicar no botão de sair
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        window.location.href = 'login.html'; // Substitua 'login.html' pelo nome da sua página de login
+    });
 </script>
 
 </body>
 </html>
+

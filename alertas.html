@@ -237,6 +237,11 @@
         }
 
         renderAlerts();
+
+        // Redirecionar ao clicar no botão "Sair"
+        document.querySelector('.logout').addEventListener('click', function() {
+            window.location.href = 'login.html';  // Altere 'login.html' para o nome correto da sua página de login
+        });
     </script>
 </body>
 </html>
