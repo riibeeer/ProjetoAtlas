@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Configuração de Sensores</title>
     <style>
-        /* Estilos da página */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -65,7 +65,7 @@
             margin-top: 70px;
         }
 
-        /* Barra lateral esquerda */
+        
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -90,7 +90,7 @@
             text-decoration: none;
         }
 
-        /* Lado esquerdo principal */
+        
         .left-side {
             flex: 1;
             padding: 20px;
@@ -154,7 +154,6 @@
             background-color: #4CAF50;
             color: white;
         }
-
     </style>
 </head>
 <body>
@@ -166,19 +165,19 @@
 </div>
 
 <div class="main-content">
-    <!-- Barra lateral esquerda -->
+    
     <div class="sidebar">
         <a href="monitoramento.html">Monitoramento em Tempo Real</a>
         <a href="telaRelatorio.html">Relatórios</a>
         <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
         <a href="configsensores.html">Configurações de Sensores</a>
+        <a href="notificação.html">Notificações</a>
+        <a href="alertas.html">Alertas</a>
     </div>
 
-    <!-- Lado esquerdo principal -->
+    
     <div class="left-side">
         <h2>Cadastro e Configuração de Sensores</h2>
-
-        <!-- Formulário de Cadastro de Sensores -->
         <div class="sensor-form">
             <h3>Cadastro de Sensor</h3>
             <form id="sensorForm">
@@ -202,7 +201,6 @@
             </form>
         </div>
 
-        <!-- Tabela de Sensores Cadastrados -->
         <h3>Sensores Cadastrados</h3>
         <table>
             <thead>
@@ -214,123 +212,43 @@
                     <th>Ações</th>
                 </tr>
             </thead>
-            <tbody id="sensorTableBody">
-                <!-- As linhas dos sensores cadastrados vão aparecer aqui dinamicamente -->
-            </tbody>
+            <tbody id="sensorTableBody"></tbody>
         </table>
     </div>
 </div>
 
 <script>
-    // Função para adicionar um novo sensor
     document.getElementById('sensorForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Impede o envio padrão do formulário
+        event.preventDefault();
 
-        // Pegando os dados inseridos no formulário
         const sensorType = document.getElementById('sensorType').value;
         const sensorModel = document.getElementById('sensorModel').value;
         const sensorLocation = document.getElementById('sensorLocation').value;
         const sensorInterval = document.getElementById('sensorInterval').value;
 
-        // Selecionando o corpo da tabela onde os sensores serão adicionados
         const tableBody = document.getElementById("sensorTableBody");
-
-        // Criando uma nova linha
         const newRow = document.createElement("tr");
 
-        // Inserindo os dados na nova linha
         newRow.innerHTML = `
             <td>${sensorType}</td>
             <td>${sensorModel}</td>
             <td>${sensorLocation}</td>
             <td>${sensorInterval} min</td>
-            <td><button onclick="editSensor(this)">Editar</button><button onclick="removeSensor(this)">Remover</button></td>
+            <td><button onclick="removeSensor(this)">Remover</button></td>
         `;
-
-        // Adicionando a nova linha na tabela
         tableBody.appendChild(newRow);
-
-        // Limpando os campos do formulário
         document.getElementById('sensorForm').reset();
     });
 
-    // Função para remover um sensor
     function removeSensor(button) {
-        const row = button.parentElement.parentElement; // Seleciona a linha do botão
-        row.remove(); // Remove a linha da tabela
+        const row = button.parentElement.parentElement;
+        row.remove();
     }
 
-    // Função para editar um sensor
-    function editSensor(button) {
-        const row = button.parentElement.parentElement; // Seleciona a linha do sensor
-        const cells = row.getElementsByTagName("td"); // Seleciona as células da linha
-
-        // Preenche o modal com os dados do sensor
-        document.getElementById('editSensorType').value = cells[0].innerText;
-        document.getElementById('editSensorModel').value = cells[1].innerText;
-        document.getElementById('editSensorLocation').value = cells[2].innerText;
-        document.getElementById('editSensorInterval').value = cells[3].innerText.split(" ")[0]; // Remove a palavra "min"
-
-        // Armazena a linha para atualizar depois
-        currentRow = row;
-
-        // Exibe o modal de edição
-        document.getElementById('editModal').style.display = 'flex';
-    }
-
-    // Função para salvar as alterações feitas em um sensor
-    function saveSensorChanges() {
-        const newType = document.getElementById('editSensorType').value;
-        const newModel = document.getElementById('editSensorModel').value;
-        const newLocation = document.getElementById('editSensorLocation').value;
-        const newInterval = document.getElementById('editSensorInterval').value + " min";
-
-        // Atualiza os dados na tabela
-        currentRow.cells[0].innerText = newType;
-        currentRow.cells[1].innerText = newModel;
-        currentRow.cells[2].innerText = newLocation;
-        currentRow.cells[3].innerText = newInterval;
-
-        // Fecha o modal de edição
-        closeModal();
-    }
-
-    // Função para fechar o modal sem salvar
-    function closeModal() {
-        document.getElementById('editModal').style.display = 'none';
-    }
-
-    // Ação do botão de logout
     document.querySelector('.logout').addEventListener('click', function() {
-        // Redirecionar para a página de login
-        window.location.href = 'login.html';  // Troque 'login.html' pelo nome correto da sua página de login
+        window.location.href = 'login.html';
     });
 </script>
-
-<!-- Modal de Edição de Sensor -->
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h3>Editar Sensor</h3>
-        <label for="editSensorType">Tipo de Sensor:</label>
-        <select id="editSensorType">
-            <option value="temperatura">Temperatura</option>
-            <option value="umidade">Umidade</option>
-            <option value="gás">Gás</option>
-        </select>
-
-        <label for="editSensorModel">Modelo:</label>
-        <input type="text" id="editSensorModel" placeholder="Modelo do Sensor">
-
-        <label for="editSensorLocation">Localização:</label>
-        <input type="text" id="editSensorLocation" placeholder="Localização do Sensor">
-
-        <label for="editSensorInterval">Intervalo de Coleta (em minutos):</label>
-        <input type="number" id="editSensorInterval" placeholder="Exemplo: 15" min="1">
-
-        <button onclick="saveSensorChanges()">Salvar Alterações</button>
-        <button onclick="closeModal()" class="modal-close">Fechar</button>
-    </div>
-</div>
 
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Monitoramento de Resíduos</title>
+    <title>Monitoramento em Tempo Real</title>
     <style>
-        /* Estilos do dashboard */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,6 +16,7 @@
             color: #fff;
         }
 
+        
         .header {
             position: fixed;
             top: 0;
@@ -59,13 +60,14 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
             margin-top: 70px;
         }
 
+        
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -90,25 +92,30 @@
             text-decoration: none;
         }
 
+        
         .left-side {
             flex: 1;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .charts {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .map-container {
+            height: 400px;
+            width: 100%;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .chart {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        .city-name {
+            font-size: 22px;
+            font-weight: bold;
             text-align: center;
         }
 
+        
         .right-sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -124,84 +131,60 @@
             margin-bottom: 10px;
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
-    <div class="header">
-        <div class="title">Atlas</div>
-        <div class="center-title">Dashboard</div>
-        <button class="logout" id="logoutButton">Sair</button>
+
+<div class="header">
+    <div class="title">Atlas</div>
+    <div class="center-title">Monitoramento em Tempo Real</div>
+    <button class="logout" id="logoutButton">Sair</button>
+</div>
+
+<div class="main-content">
+    
+    <div class="sidebar">
+        <a href="monitoramento.html">Monitoramento em Tempo Real</a>
+        <a href="telaRelatorio.html">Relatórios</a>
+        <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
+        <a href="configsensores.html">Configurações de Sensores</a>
+        <a href="notificação.html">Notificações</a>
+        <a href="alertas.html">Alertas</a>
     </div>
 
-    <div class="main-content">
-        <!-- Barra lateral esquerda -->
-        <div class="sidebar">
-            <a href="monitoramento.html">Monitoramento em Tempo Real</a>
-            <a href="telaRelatorio.html">Relatórios</a>
-            <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
-            <a href="configsensores.html">Configurações de Sensores</a>
-        </div>
-
-        <!-- Lado esquerdo principal -->
-        <div class="left-side">
-            <!-- Gráficos interativos -->
-            <div class="charts">
-                <div class="chart">
-                    <h3>Volume de Resíduos Coletados</h3>
-                    <canvas id="volumeChart"></canvas>
-                </div>
-                <div class="chart">
-                    <h3>Tipos de Resíduos</h3>
-                    <canvas id="typesChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <!-- Barra lateral direita -->
-        <div class="right-sidebar">
-            <h2>Indicadores</h2>
-            <p>Eficiência das Coletas: 85%</p>
-            <p>Resíduos Críticos: 5%</p>
-        </div>
+    
+    <div class="left-side">
+        <div id="map" class="map-container"></div>
+        <div class="city-name">Salvador/Bahia</div>
     </div>
 
-    <script>
-        // Exemplo de gráfico de volume de resíduos coletados
-        const volumeCtx = document.getElementById('volumeChart').getContext('2d');
-        const volumeChart = new Chart(volumeCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], // Exemplo de meses
-                datasets: [{
-                    label: 'Volume de Resíduos',
-                    data: [120, 150, 180, 220, 160], // Exemplo de dados
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    borderWidth: 1
-                }]
-            }
-        });
+    
+    <div class="right-sidebar">
+        <h2>Indicador de volume</h2>
+        <p>Alta: 40%</p>
+        <p>Média: 35%</p>
+        <p>Baixa: 25%</p>
+    </div>
+</div>
 
-        // Exemplo de gráfico de tipos de resíduos
-        const typesCtx = document.getElementById('typesChart').getContext('2d');
-        const typesChart = new Chart(typesCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Plástico', 'Vidro', 'Orgânico', 'Metal'],
-                datasets: [{
-                    label: 'Tipos de Resíduos',
-                    data: [40, 20, 30, 10], // Exemplo de distribuição
-                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
-                    borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
-                    borderWidth: 1
-                }]
-            }
-        });
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    
+    const map = L.map('map').setView([-12.9714, -38.5014], 12);
 
-        // Lógica para o botão de "Sair"
-        document.getElementById('logoutButton').addEventListener('click', function() {
-            window.location.href = 'login.html'; // Redireciona para a página de login
-        });
-    </script>
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([-12.9714, -38.5014]).addTo(map)
+        .bindPopup('Salvador, Bahia')
+        .openPopup();
+
+    
+    document.getElementById('logoutButton').addEventListener('click', function() {
+        window.location.href = 'login.html'; 
+    });
+</script>
+
 </body>
 </html>

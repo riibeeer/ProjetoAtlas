@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Cadastro</title>
     <style>
-        /* Estilo do fundo verde degradê */
+        
         body {
             background: linear-gradient(to right, #32cd32, #006400);
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             margin: 0;
         }
 
-        /* Container do formulário */
+        
         .form-container {
             background-color: white;
             border-radius: 8px;
@@ -31,7 +31,7 @@
             color: #333;
         }
 
-        /* Estilo dos campos de entrada */
+        
         input[type="text"],
         input[type="email"],
         input[type="password"],
@@ -45,7 +45,7 @@
             font-size: 14px;
         }
 
-        /* Estilo do botão de envio */
+        
         button {
             width: 100%;
             padding: 12px;
@@ -62,14 +62,14 @@
             background-color: #28a745;
         }
 
-        /* Ajuste de estilo para labels */
+        
         label {
             font-weight: bold;
             margin-top: 10px;
             display: block;
         }
 
-        /* Estilo para mensagens de erro */
+        
         .error {
             color: red;
             font-size: 12px;
@@ -114,20 +114,20 @@
         document.getElementById('cadastroForm').addEventListener('submit', function(event) {
             event.preventDefault();
 
-            // Limpar mensagens de erro anteriores
+            
             document.getElementById('error-message').textContent = '';
 
-            // Obter os valores dos campos
+            
             const senha = document.getElementById('senha').value;
             const confirmarSenha = document.getElementById('confirmarSenha').value;
 
-            // Validar senhas
+            
             if (senha !== confirmarSenha) {
                 document.getElementById('error-message').textContent = 'As senhas não coincidem!';
                 return;
             }
 
-            // Se passar na validação, mostrar sucesso (simulação)
+            
             alert('Cadastro solicitado com sucesso!');
         });
     </script>

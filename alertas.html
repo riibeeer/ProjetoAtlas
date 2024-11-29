@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central de Alertas</title>
     <style>
-        /* Estilo semelhante ao Dashboard */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             color: #fff;
         }
 
-        /* Cabeçalho */
+        
         .header {
             position: fixed;
             top: 0;
@@ -60,7 +60,7 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
@@ -169,27 +169,30 @@
     </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    
     <div class="header">
         <div class="title">Atlas</div>
         <div class="center-title">Central de Alertas</div>
         <button class="logout">Sair</button>
     </div>
 
-    <!-- Conteúdo principal -->
+    
     <div class="main-content">
-        <!-- Barra lateral esquerda -->
+        
         <div class="sidebar">
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="telaRelatorio.html">Relatórios</a>
             <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
             <a href="configsensores.html">Configurações de Sensores</a>
+            
+            <a href="notificação.html">Notificações</a>
+            <a href="alertas.html">Alertas</a>
         </div>
 
-        <!-- Lado esquerdo principal -->
+        
         <div class="left-side">
             <div class="alert-container" id="alertContainer">
-                <!-- Alertas serão adicionados dinamicamente -->
+                
             </div>
             <div class="download">
                 <button onclick="downloadAlerts()">Baixar Registro de Alertas</button>
@@ -197,7 +200,7 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    
     <script>
         const alerts = [
             { id: 1, text: "Volume crítico no Sensor 3", status: "pending" },
@@ -238,9 +241,9 @@
 
         renderAlerts();
 
-        // Redirecionar ao clicar no botão "Sair"
+        
         document.querySelector('.logout').addEventListener('click', function() {
-            window.location.href = 'login.html';  // Altere 'login.html' para o nome correto da sua página de login
+            window.location.href = 'login.html';  
         });
     </script>
 </body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Monitoramento de Resíduos</title>
     <style>
-        /* Estilos do dashboard */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -59,7 +59,7 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
@@ -134,17 +134,19 @@
     </div>
 
     <div class="main-content">
-        <!-- Barra lateral esquerda -->
+        
         <div class="sidebar">
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="telaRelatorio.html">Relatórios</a>
             <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
             <a href="configsensores.html">Configurações de Sensores</a>
+            <a href="notificação.html">Notificações</a>
+            <a href="alertas.html">Alertas</a>
         </div>
 
-        <!-- Lado esquerdo principal -->
+        
         <div class="left-side">
-            <!-- Gráficos interativos -->
+            
             <div class="charts">
                 <div class="chart">
                     <h3>Volume de Resíduos Coletados</h3>
@@ -157,7 +159,7 @@
             </div>
         </div>
 
-        <!-- Barra lateral direita -->
+        
         <div class="right-sidebar">
             <h2>Indicadores</h2>
             <p>Eficiência das Coletas: 85%</p>
@@ -166,15 +168,15 @@
     </div>
 
     <script>
-        // Exemplo de gráfico de volume de resíduos coletados
+        
         const volumeCtx = document.getElementById('volumeChart').getContext('2d');
         const volumeChart = new Chart(volumeCtx, {
             type: 'bar',
             data: {
-                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], // Exemplo de meses
+                labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], 
                 datasets: [{
                     label: 'Volume de Resíduos',
-                    data: [120, 150, 180, 220, 160], // Exemplo de dados
+                    data: [120, 150, 180, 220, 160], 
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1
@@ -182,7 +184,7 @@
             }
         });
 
-        // Exemplo de gráfico de tipos de resíduos
+        
         const typesCtx = document.getElementById('typesChart').getContext('2d');
         const typesChart = new Chart(typesCtx, {
             type: 'pie',
@@ -190,7 +192,7 @@
                 labels: ['Plástico', 'Vidro', 'Orgânico', 'Metal'],
                 datasets: [{
                     label: 'Tipos de Resíduos',
-                    data: [40, 20, 30, 10], // Exemplo de distribuição
+                    data: [40, 20, 30, 10], 
                     backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                     borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
                     borderWidth: 1
@@ -198,9 +200,9 @@
             }
         });
 
-        // Lógica para o botão de sair
+        
         document.getElementById('logoutButton').addEventListener('click', function() {
-            window.location.href = 'login.html'; // Redireciona para a página de login
+            window.location.href = 'login.html'; 
         });
     </script>
 </body>

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Relatórios - Monitoramento de Resíduos</title>
     <style>
-        /* Estilos da página */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             color: #fff;
         }
 
-        /* Cabeçalho */
+        
         .header {
             position: fixed;
             top: 0;
@@ -60,14 +60,14 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
             margin-top: 70px;
         }
 
-        /* Barra lateral esquerda */
+        
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -92,41 +92,41 @@
             text-decoration: none;
         }
 
-        /* Lado esquerdo principal */
+        
         .left-side {
             flex: 1;
             padding: 20px;
         }
 
-        /* Tabela de Relatório */
+        
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #fff; /* Fundo branco para a tabela */
+            background-color: #fff; 
         }
 
         table th, table td {
             padding: 12px;
             text-align: center;
             border: 1px solid #ddd;
-            color: #333; /* Cor de texto mais escura para bom contraste */
+            color: #333; 
         }
 
         table tr:nth-child(even) {
-            background-color: #f2f2f2; /* Alternância de linha para clarear o fundo */
+            background-color: #f2f2f2; 
         }
 
         table tr:nth-child(odd) {
-            background-color: #ffffff; /* Linha ímpar com fundo branco */
+            background-color: #ffffff; 
         }
 
         table th {
-            background-color: #4CAF50; /* Cor de fundo do cabeçalho */
-            color: white; /* Cor do texto do cabeçalho */
+            background-color: #4CAF50; 
+            color: white; 
         }
 
-        /* Gráficos */
+        
         .chart-container {
             margin-top: 30px;
             display: flex;
@@ -137,7 +137,7 @@
             width: 48%;
         }
 
-        /* Barra lateral direita */
+        
         .right-sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -164,19 +164,21 @@
 </div>
 
 <div class="main-content">
-    <!-- Barra lateral esquerda -->
+    
     <div class="sidebar">
         <a href="monitoramento.html">Monitoramento em Tempo Real</a>
         <a href="telaRelatorio.html">Relatórios</a>
         <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
         <a href="configsensores.html">Configurações de Sensores</a>
+        <a href="notificação.html">Notificações</a>
+        <a href="alertas.html">Alertas</a>
     </div>
 
-    <!-- Lado esquerdo principal -->
+    
     <div class="left-side">
         <h2>Relatório de Resíduos</h2>
 
-        <!-- Tabela de Relatório -->
+        
         <table>
             <thead>
                 <tr>
@@ -209,7 +211,7 @@
             </tbody>
         </table>
 
-        <!-- Gráficos -->
+        
         <div class="chart-container">
             <div>
                 <h3>Volume de Resíduos Coletados</h3>
@@ -222,7 +224,7 @@
         </div>
     </div>
 
-    <!-- Barra lateral direita -->
+    
     <div class="right-sidebar">
         <h2>Indicadores</h2>
         <p>Eficiência das Coletas: 85%</p>
@@ -231,15 +233,15 @@
 </div>
 
 <script>
-    // Gráfico de barras (Volume de Resíduos)
+    
     const volumeCtx = document.getElementById('volumeChart').getContext('2d');
     const volumeChart = new Chart(volumeCtx, {
         type: 'bar',
         data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'], // Exemplo de meses
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai'],
             datasets: [{
                 label: 'Volume de Resíduos',
-                data: [120, 150, 180, 220, 160], // Exemplo de dados
+                data: [120, 150, 180, 220, 160],
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1
@@ -247,7 +249,7 @@
         }
     });
 
-    // Gráfico de pizza (Distribuição de Tipos de Resíduos)
+    
     const typesCtx = document.getElementById('typesChart').getContext('2d');
     const typesChart = new Chart(typesCtx, {
         type: 'pie',
@@ -255,7 +257,7 @@
             labels: ['Plástico', 'Vidro', 'Orgânico', 'Metal'],
             datasets: [{
                 label: 'Tipos de Resíduos',
-                data: [500, 200, 800, 150], // Exemplo de dados
+                data: [500, 200, 800, 150],
                 backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
                 borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
                 borderWidth: 1
@@ -263,12 +265,11 @@
         }
     });
 
-    // Redirecionar para login quando clicar no botão de sair
+    
     document.getElementById('logoutButton').addEventListener('click', function() {
-        window.location.href = 'login.html'; // Substitua 'login.html' pelo nome da sua página de login
+        window.location.href = 'login.html'; 
     });
 </script>
 
 </body>
 </html>
-

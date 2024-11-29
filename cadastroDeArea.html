@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Áreas - Salvador, Bahia</title>
     <style>
-        /* Estilo semelhante ao Dashboard */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             color: #fff;
         }
 
-        /* Cabeçalho */
+        
         .header {
             position: fixed;
             top: 0;
@@ -60,7 +60,7 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
@@ -112,7 +112,7 @@
         }
 
         .form-container input {
-            width: 100%; /* Largura completa */
+            width: 100%;
             padding: 10px;
             margin-bottom: 10px;
             border: none;
@@ -121,7 +121,7 @@
         }
 
         .form-container button {
-            width: 100%; /* Largura consistente */
+            width: 100%;
             padding: 10px;
             background-color: #4CAF50;
             color: #fff;
@@ -167,24 +167,26 @@
     </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    
     <div class="header">
         <div class="title">Atlas</div>
         <div class="center-title">Cadastro de Áreas</div>
         <button class="logout">Sair</button>
     </div>
 
-    <!-- Conteúdo principal -->
+    
     <div class="main-content">
-        <!-- Barra lateral esquerda -->
+        
         <div class="sidebar">
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="telaRelatorio.html">Relatórios</a>
             <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
             <a href="configsensores.html">Configurações de Sensores</a>
+            <a href="notificação.html">Notificações</a>
+            <a href="alertas.html">Alertas</a>
         </div>
 
-        <!-- Lado esquerdo principal -->
+        
         <div class="left-side">
             <div class="form-container">
                 <h2>Cadastro de Área</h2>
@@ -193,14 +195,14 @@
             </div>
         </div>
 
-        <!-- Barra lateral direita -->
+        
         <div class="right-sidebar">
             <h2>Áreas Cadastradas</h2>
             <ul id="areaList" class="area-list"></ul>
         </div>
     </div>
 
-    <!-- Scripts -->
+    
     <script>
         function addArea() {
             const areaName = document.getElementById('areaName').value;
@@ -211,17 +213,15 @@
                 listItem.textContent = areaName;
                 areaList.appendChild(listItem);
 
-                // Limpar o campo
                 document.getElementById('areaName').value = '';
             } else {
-                alert('Preencha o campo "Nome da Área"!'); 
+                alert('Preencha o campo "Nome da Área"!');
             }
         }
 
-        // Função para fazer o botão de "Sair" funcionar
-        document.querySelector('.logout').addEventListener('click', function() {
-            // Redireciona para a página de login
-            window.location.href = 'login.html';  // Altere 'login.html' conforme o nome correto da sua página de login
+        
+        document.querySelector('.logout').addEventListener('click', function () {
+            window.location.href = 'login.html';
         });
     </script>
 </body>

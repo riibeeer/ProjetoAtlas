@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico de Notificações</title>
     <style>
-        /* Estilo semelhante ao Dashboard */
+        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +16,7 @@
             color: #fff;
         }
 
-        /* Cabeçalho */
+        
         .header {
             position: fixed;
             top: 0;
@@ -60,7 +60,7 @@
             transform: scale(1.05);
         }
 
-        /* Layout principal */
+        
         .main-content {
             display: flex;
             flex: 1;
@@ -144,32 +144,34 @@
     </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
+    
     <div class="header">
         <div class="title">Atlas</div>
         <div class="center-title">Histórico de Notificações</div>
         <button class="logout" id="logoutButton">Sair</button>
     </div>
 
-    <!-- Conteúdo principal -->
+    
     <div class="main-content">
-        <!-- Barra lateral esquerda -->
+        
         <div class="sidebar">
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="telaRelatorio.html">Relatórios</a>
             <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
             <a href="configsensores.html">Configurações de Sensores</a>
+            <a href="notificação.html">Notificações</a>
+            <a href="alertas.html">Alertas</a>
         </div>
 
-        <!-- Lado esquerdo principal -->
+        
         <div class="left-side">
             <div class="notification-container" id="notificationContainer">
-                <!-- Notificações serão adicionadas aqui -->
+                
             </div>
         </div>
     </div>
 
-    <!-- Scripts -->
+    
     <script>
         const notifications = [
             { id: 1, text: "Sensor 1 está offline", read: false },
@@ -208,9 +210,9 @@
             renderNotifications();
         }
 
-        // Redirecionar para login quando clicar no botão de sair
+        
         document.getElementById('logoutButton').addEventListener('click', function() {
-            window.location.href = 'login.html'; // Redireciona para a página de login
+            window.location.href = 'login.html'; 
         });
 
         renderNotifications();
