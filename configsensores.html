@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tela de Configuração de Sensores</title>
     <style>
-        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -65,7 +64,6 @@
             margin-top: 70px;
         }
 
-        
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -90,7 +88,6 @@
             text-decoration: none;
         }
 
-        
         .left-side {
             flex: 1;
             padding: 20px;
@@ -165,7 +162,6 @@
 </div>
 
 <div class="main-content">
-    
     <div class="sidebar">
         <a href="monitoramento.html">Monitoramento em Tempo Real</a>
         <a href="telaRelatorio.html">Relatórios</a>
@@ -174,8 +170,6 @@
         <a href="notificação.html">Notificações</a>
         <a href="alertas.html">Alertas</a>
     </div>
-
-    
     <div class="left-side">
         <h2>Cadastro e Configuração de Sensores</h2>
         <div class="sensor-form">
@@ -187,20 +181,15 @@
                     <option value="umidade">Umidade</option>
                     <option value="gás">Gás</option>
                 </select>
-
                 <label for="sensorModel">Modelo:</label>
                 <input type="text" id="sensorModel" placeholder="Modelo do Sensor">
-
                 <label for="sensorLocation">Localização:</label>
                 <input type="text" id="sensorLocation" placeholder="Localização do Sensor">
-
                 <label for="sensorInterval">Intervalo de Coleta (em minutos):</label>
                 <input type="number" id="sensorInterval" placeholder="Exemplo: 15" min="1">
-
                 <button type="submit">Cadastrar Sensor</button>
             </form>
         </div>
-
         <h3>Sensores Cadastrados</h3>
         <table>
             <thead>
@@ -218,36 +207,52 @@
 </div>
 
 <script>
+    function loadSensors() {
+        const sensors = JSON.parse(localStorage.getItem("sensors")) || [];
+        const tableBody = document.getElementById("sensorTableBody");
+        tableBody.innerHTML = sensors.map(sensor => `
+            <tr>
+                <td>${sensor.type}</td>
+                <td>${sensor.model}</td>
+                <td>${sensor.location}</td>
+                <td>${sensor.interval} min</td>
+                <td><button onclick="removeSensor('${sensor.id}')">Remover</button></td>
+            </tr>
+        `).join('');
+    }
+
+    function saveSensor(sensor) {
+        const sensors = JSON.parse(localStorage.getItem("sensors")) || [];
+        sensors.push(sensor);
+        localStorage.setItem("sensors", JSON.stringify(sensors));
+    }
+
+    function removeSensor(id) {
+        const sensors = JSON.parse(localStorage.getItem("sensors")) || [];
+        const filtered = sensors.filter(sensor => sensor.id !== id);
+        localStorage.setItem("sensors", JSON.stringify(filtered));
+        loadSensors();
+    }
+
     document.getElementById('sensorForm').addEventListener('submit', function(event) {
         event.preventDefault();
-
-        const sensorType = document.getElementById('sensorType').value;
-        const sensorModel = document.getElementById('sensorModel').value;
-        const sensorLocation = document.getElementById('sensorLocation').value;
-        const sensorInterval = document.getElementById('sensorInterval').value;
-
-        const tableBody = document.getElementById("sensorTableBody");
-        const newRow = document.createElement("tr");
-
-        newRow.innerHTML = `
-            <td>${sensorType}</td>
-            <td>${sensorModel}</td>
-            <td>${sensorLocation}</td>
-            <td>${sensorInterval} min</td>
-            <td><button onclick="removeSensor(this)">Remover</button></td>
-        `;
-        tableBody.appendChild(newRow);
+        const sensor = {
+            id: Date.now().toString(),
+            type: document.getElementById('sensorType').value,
+            model: document.getElementById('sensorModel').value,
+            location: document.getElementById('sensorLocation').value,
+            interval: document.getElementById('sensorInterval').value,
+        };
+        saveSensor(sensor);
         document.getElementById('sensorForm').reset();
+        loadSensors();
     });
-
-    function removeSensor(button) {
-        const row = button.parentElement.parentElement;
-        row.remove();
-    }
 
     document.querySelector('.logout').addEventListener('click', function() {
         window.location.href = 'login.html';
     });
+
+    loadSensors();
 </script>
 
 </body>
