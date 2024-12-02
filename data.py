@@ -12,8 +12,8 @@ coordenadas = {
     "Sé": [-23.5505, -46.6333],
     "Mooca": [-23.5654, -46.6168],
     "Vila Mariana": [-23.5858, -46.6359],
-    "Penha": [-23.5319, -46.4613]
-    "Santana":
+    "Penha": [-23.5319, -46.4613],
+    "Santana":[1, 1],
     "Lapa":
     "Pinheiros":
     "Butantan":
