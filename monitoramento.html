@@ -155,7 +155,7 @@
     
     <div class="left-side">
         <div id="map" class="map-container"></div>
-        <div class="city-name">Salvador/Bahia</div>
+        <div class="city-name">São Paulo/SP</div>
     </div>
 
     
@@ -170,14 +170,14 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     
-    const map = L.map('map').setView([-12.9714, -38.5014], 12);
+    const map = L.map('map').setView([-23.5505, -46.6333], 12); // Coordenadas de São Paulo
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([-12.9714, -38.5014]).addTo(map)
-        .bindPopup('Salvador, Bahia')
+    L.marker([-23.5505, -46.6333]).addTo(map)
+        .bindPopup('São Paulo, SP')
         .openPopup();
 
     
