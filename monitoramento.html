@@ -169,22 +169,38 @@
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    
     const map = L.map('map').setView([-23.5505, -46.6333], 12); // Coordenadas de São Paulo
 
+    // Adicionar camada base do OpenStreetMap
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    L.marker([-23.5505, -46.6333]).addTo(map)
-        .bindPopup('São Paulo, SP')
-        .openPopup();
+    // Obter dados geográficos do servidor Flask
+    fetch('http://127.0.0.1:5000/dados')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(item => {
+                if (item.coords) {
+                    const popupContent = `
+                        <b>Bairro:</b> ${item.bairro}<br>
+                        <b>Tipo:</b> ${item.type}<br>
+                        <b>Volume:</b> ${item.volume} m³<br>
+                        <b>Ano:</b> ${item.year}
+                    `;
+                    L.marker(item.coords).addTo(map).bindPopup(popupContent);
+                }
+            });
+        })
+        .catch(error => console.error('Erro ao carregar os dados:', error));
 
-    
+    // Botão de logout
     document.getElementById('logoutButton').addEventListener('click', function() {
         window.location.href = 'login.html'; 
     });
 </script>
+
+
 
 </body>
 </html>
