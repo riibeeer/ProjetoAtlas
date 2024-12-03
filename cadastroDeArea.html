@@ -237,3 +237,62 @@
     </script>
 </body>
 </html>
+<script>
+    function addArea() {
+        const areaName = document.getElementById('areaName').value;
+
+        if (areaName) {
+            const areas = JSON.parse(localStorage.getItem('areas')) || [];
+            areas.push(areaName);
+            localStorage.setItem('areas', JSON.stringify(areas));
+            renderAreaList();
+            document.getElementById('areaName').value = '';
+        } else {
+            alert('Preencha o campo "Nome da Área"!');
+        }
+    }
+
+    function removeArea(index) {
+        const areas = JSON.parse(localStorage.getItem('areas')) || [];
+        areas.splice(index, 1); // Remove o item do array
+        localStorage.setItem('areas', JSON.stringify(areas)); // Atualiza o localStorage
+        renderAreaList(); // Re-renderiza a lista
+    }
+
+    function renderAreaList() {
+        const areaList = document.getElementById('areaList');
+        areaList.innerHTML = '';
+        const areas = JSON.parse(localStorage.getItem('areas')) || [];
+        areas.forEach((area, index) => {
+            const listItem = document.createElement('li');
+
+            // Texto do item
+            listItem.textContent = area;
+
+            // Botão de remover
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remover';
+            removeButton.style.marginLeft = '10px';
+            removeButton.style.backgroundColor = '#FF5252';
+            removeButton.style.color = '#fff';
+            removeButton.style.border = 'none';
+            removeButton.style.borderRadius = '5px';
+            removeButton.style.cursor = 'pointer';
+            removeButton.onclick = () => removeArea(index);
+
+            // Adiciona o botão ao item
+            listItem.appendChild(removeButton);
+
+            // Adiciona o item à lista
+            areaList.appendChild(listItem);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        renderAreaList();
+    });
+
+    document.querySelector('.logout').addEventListener('click', function () {
+        window.location.href = 'login.html';
+    });
+</script>
