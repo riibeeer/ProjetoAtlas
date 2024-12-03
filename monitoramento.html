@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramento em Tempo Real</title>
     <style>
-        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +15,6 @@
             color: #fff;
         }
 
-        
         .header {
             position: fixed;
             top: 0;
@@ -31,19 +29,17 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        
         .header .title {
             font-size: 22px;
             font-weight: bold;
-            color: white; 
-            text-decoration: none; 
-            cursor: pointer; 
-            transition: color 0.3s ease; 
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        
         .header .title:hover {
-            color: #4CAF50; 
+            color: #4CAF50;
         }
 
         .header .center-title {
@@ -70,14 +66,12 @@
             transform: scale(1.05);
         }
 
-        
         .main-content {
             display: flex;
             flex: 1;
             margin-top: 70px;
         }
 
-        
         .sidebar {
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
@@ -102,7 +96,6 @@
             text-decoration: none;
         }
 
-        
         .left-side {
             flex: 1;
             padding: 20px;
@@ -125,8 +118,8 @@
             text-align: center;
         }
 
-        
         .right-sidebar {
+            
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
             padding: 10px;
@@ -135,25 +128,18 @@
             flex-direction: column;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
         }
-
-        .right-sidebar h2 {
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
 <div class="header">
-    
     <a href="Dashboard.html" class="title">Atlas</a>
     <div class="center-title">Monitoramento em Tempo Real</div>
     <button class="logout" id="logoutButton">Sair</button>
 </div>
 
 <div class="main-content">
-    
     <div class="sidebar">
         <a href="monitoramento.html">Monitoramento em Tempo Real</a>
         <a href="telaRelatorio.html">Relatórios</a>
@@ -163,7 +149,6 @@
         <a href="alertas.html">Alertas</a>
     </div>
 
-    
     <div class="left-side">
         <div id="map" class="map-container"></div>
         <div class="city-name">São Paulo/SP</div>
@@ -171,23 +156,18 @@
 
     
     <div class="right-sidebar">
-        <h2>Indicador de volume</h2>
-        <p>Alta: 40%</p>
-        <p>Média: 35%</p>
-        <p>Baixa: 25%</p>
+        
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-    const map = L.map('map').setView([-23.5505, -46.6333], 12); 
+    const map = L.map('map').setView([-23.5505, -46.6333], 12);
 
-    
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    
     fetch('http://127.0.0.1:5000/dados')
         .then(response => response.json())
         .then(data => {
@@ -205,9 +185,8 @@
         })
         .catch(error => console.error('Erro ao carregar os dados:', error));
 
-    
     document.getElementById('logoutButton').addEventListener('click', function() {
-        window.location.href = 'login.html'; 
+        window.location.href = 'login.html';
     });
 </script>
 
