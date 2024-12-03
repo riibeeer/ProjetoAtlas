@@ -1,7 +1,3 @@
-Claro! Com base nas mudanças e nas funcionalidades em andamento, aqui está o **README** atualizado:
-
----
-
 # Atlas - Sistema de Gerenciamento de Resíduos
 
 ## Descrição
