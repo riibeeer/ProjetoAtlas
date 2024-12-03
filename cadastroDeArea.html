@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Áreas - Salvador, Bahia</title>
+    <title>Cadastro de Áreas</title>  <!-- Removido "Salvador, Bahia" do título -->
     <style>
         
         body {
@@ -31,9 +31,19 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Nome "Atlas" agora é um link */
         .header .title {
             font-size: 22px;
             font-weight: bold;
+            color: white; /* Cor inicial branca */
+            text-decoration: none; /* Remove sublinhado */
+            cursor: pointer; /* Indica que o nome é clicável */
+            transition: color 0.3s ease; /* Efeito de transição suave */
+        }
+
+        /* Efeito de hover - mudança para verde */
+        .header .title:hover {
+            color: #4CAF50; /* Cor verde */
         }
 
         .header .center-title {
@@ -169,7 +179,8 @@
 <body>
     
     <div class="header">
-        <div class="title">Atlas</div>
+        <!-- Nome "Atlas" agora é um link -->
+        <a href="Dashboard.html" class="title">Atlas</a>
         <div class="center-title">Cadastro de Áreas</div>
         <button class="logout">Sair</button>
     </div>
@@ -215,7 +226,7 @@
 
                 document.getElementById('areaName').value = '';
             } else {
-                alert('Preencha o campo "Nome da Área"!');
+                alert('Preencha o campo "Nome da Área"!');  // Alerta se o campo estiver vazio
             }
         }
 

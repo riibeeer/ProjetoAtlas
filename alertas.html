@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Central de Alertas</title>
     <style>
-        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +15,6 @@
             color: #fff;
         }
 
-        
         .header {
             position: fixed;
             top: 0;
@@ -31,9 +29,16 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Estilo para o título "Atlas" */
         .header .title {
             font-size: 22px;
             font-weight: bold;
+            cursor: pointer; /* Torna o "Atlas" clicável */
+            transition: color 0.3s ease-in-out;
+        }
+
+        .header .title:hover {
+            color: #FF5252; /* Efeito de cor vermelha ao passar o mouse */
         }
 
         .header .center-title {
@@ -60,7 +65,6 @@
             transform: scale(1.05);
         }
 
-        
         .main-content {
             display: flex;
             flex: 1;
@@ -171,12 +175,12 @@
 <body>
     
     <div class="header">
-        <div class="title">Atlas</div>
+        <!-- Alteração feita aqui para redirecionar corretamente para o Dashboard.html -->
+        <div class="title" onclick="window.location.href='Dashboard.html'">Atlas</div>
         <div class="center-title">Central de Alertas</div>
         <button class="logout">Sair</button>
     </div>
 
-    
     <div class="main-content">
         
         <div class="sidebar">
@@ -184,23 +188,18 @@
             <a href="telaRelatorio.html">Relatórios</a>
             <a href="cadastroDeArea.html">Cadastro de Áreas de Coleta</a>
             <a href="configsensores.html">Configurações de Sensores</a>
-            
             <a href="notificação.html">Notificações</a>
             <a href="alertas.html">Alertas</a>
         </div>
 
-        
         <div class="left-side">
-            <div class="alert-container" id="alertContainer">
-                
-            </div>
+            <div class="alert-container" id="alertContainer"></div>
             <div class="download">
                 <button onclick="downloadAlerts()">Baixar Registro de Alertas</button>
             </div>
         </div>
     </div>
 
-    
     <script>
         const alerts = [
             { id: 1, text: "Volume crítico no Sensor 3", status: "pending" },
@@ -241,7 +240,6 @@
 
         renderAlerts();
 
-        
         document.querySelector('.logout').addEventListener('click', function() {
             window.location.href = 'login.html';  
         });

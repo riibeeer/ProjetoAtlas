@@ -29,9 +29,19 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
+        /* Nome "Atlas" com cor inicial branca e sem sublinhado */
         .header .title {
             font-size: 22px;
             font-weight: bold;
+            color: white; /* Cor inicial branca */
+            text-decoration: none; /* Remove o sublinhado */
+            cursor: pointer; /* Torna o nome "Atlas" clicável */
+            transition: color 0.3s ease; /* Efeito de transição para a cor */
+        }
+
+        /* Efeito de hover - nome "Atlas" ficando verde */
+        .header .title:hover {
+            color: #4CAF50; /* Cor verde */
         }
 
         .header .center-title {
@@ -129,7 +139,8 @@
 <body>
 
 <div class="header">
-    <div class="title">Atlas</div>
+    <!-- Tornando o nome Atlas clicável -->
+    <a href="Dashboard.html" class="title">Atlas</a>
     <div class="center-title">Relatórios</div>
     <button class="logout" id="logoutButton">Sair</button>
 </div>
