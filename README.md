@@ -62,6 +62,9 @@ O **Atlas** é um sistema para gerenciamento e monitoramento de resíduos urbano
    - Após executar os comandos acima, você poderá acessar a interface do sistema no navegador em:  
      `http://localhost:8501`
 
+5. **Login (Informação Importante)**:
+   - Para acessar o sistema, o usuário precisa ser **admin** e a senha deve ser **1234**.
+
 ## Funcionalidades Pendentes
 
 - **Mapa Interativo (Em Desenvolvimento)**: Atualmente, a funcionalidade de mapa interativo usando **Leaflet.js** ou **Folium** não está implementada de forma completa. O objetivo é exibir um mapa interativo que mostre os pontos de coleta de resíduos e a distribuição dos volumes coletados por área. Planejamos integrar dados geoespaciais para isso em uma versão futura.
