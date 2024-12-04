@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Histórico de Notificações</title>
     <style>
-        
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -16,7 +15,6 @@
             color: #fff;
         }
 
-        
         .header {
             position: fixed;
             top: 0;
@@ -31,19 +29,17 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        
         .header .title {
             font-size: 22px;
             font-weight: bold;
-            color: white; 
-            text-decoration: none; 
-            cursor: pointer; 
-            transition: color 0.3s ease; 
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
 
-        
         .header .title:hover {
-            color: #4CAF50; 
+            color: #4CAF50;
         }
 
         .header .center-title {
@@ -70,7 +66,6 @@
             transform: scale(1.05);
         }
 
-        
         .main-content {
             display: flex;
             flex: 1;
@@ -151,20 +146,23 @@
             background-color: #45a049;
             transform: scale(1.05);
         }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            margin-top: 70px; /* Para não sobrepor o header */
+        }
     </style>
 </head>
 <body>
-    
     <div class="header">
-        
         <a href="Dashboard.html" class="title">Atlas</a>
         <div class="center-title">Histórico de Notificações</div>
         <button class="logout" id="logoutButton">Sair</button>
     </div>
 
-    
     <div class="main-content">
-        
         <div class="sidebar">
             <a href="monitoramento.html">Monitoramento em Tempo Real</a>
             <a href="telaRelatorio.html">Relatórios</a>
@@ -174,27 +172,29 @@
             <a href="alertas.html">Alertas</a>
         </div>
 
-        
         <div class="left-side">
-            <div class="notification-container" id="notificationContainer">
-                
-            </div>
+            <!-- Aqui o Streamlit será carregado -->
+            <iframe src="http://localhost:8504/" title="Notificações Streamlit"></iframe>
         </div>
     </div>
 
-    
     <script>
-        const notifications = [
-            { id: 1, text: "Sensor 1 está offline", read: false },
-            { id: 2, text: "Novo relatório disponível", read: true },
-            { id: 3, text: "Limite de resíduos ultrapassado", read: false },
-            { id: 4, text: "Atualização no sistema concluída", read: true },
-        ];
+        // Função para buscar as notificações do backend
+        async function fetchNotifications() {
+            try {
+                const response = await fetch('http://localhost:8504/api/notifications');
+                const notifications = await response.json();
+                renderNotifications(notifications);
+            } catch (error) {
+                console.error('Erro ao carregar notificações:', error);
+            }
+        }
 
-        const container = document.getElementById('notificationContainer');
+        // Função para renderizar as notificações na tela
+        function renderNotifications(notifications) {
+            const container = document.getElementById('notificationContainer');
+            container.innerHTML = ''; // Limpar o conteúdo anterior
 
-        function renderNotifications() {
-            container.innerHTML = '';
             notifications.forEach(notification => {
                 const div = document.createElement('div');
                 div.className = `notification ${notification.read ? 'read' : ''}`;
@@ -209,24 +209,23 @@
             });
         }
 
+        // Função para marcar uma notificação como lida
         function markAsRead(id) {
-            const notification = notifications.find(n => n.id === id);
-            notification.read = !notification.read;
-            renderNotifications();
+            fetch(`http://localhost:8504/api/notifications/${id}/read`, { method: 'POST' })
+                .then(response => response.json())
+                .then(() => fetchNotifications());
         }
 
+        // Função para arquivar uma notificação
         function archiveNotification(id) {
-            const index = notifications.findIndex(n => n.id === id);
-            notifications.splice(index, 1);
-            renderNotifications();
+            fetch(`http://localhost:8504/api/notifications/${id}/archive`, { method: 'POST' })
+                .then(response => response.json())
+                .then(() => fetchNotifications());
         }
 
-        
-        document.getElementById('logoutButton').addEventListener('click', function() {
-            window.location.href = 'login.html'; 
-        });
-
-        renderNotifications();
+        // Carregar as notificações ao carregar a página
+        fetchNotifications();
+        setInterval(fetchNotifications, 10000); // Atualiza a cada 10 segundos
     </script>
 </body>
 </html>
