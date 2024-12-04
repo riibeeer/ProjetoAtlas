@@ -22,3 +22,5 @@ with open('dados.json', 'w') as f:
     json.dump(dados_json, f, indent=2)
 
 print("Arquivo JSON gerado com sucesso!")
+
+

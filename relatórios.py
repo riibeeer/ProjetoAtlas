@@ -158,3 +158,4 @@ if df is not None:
                     f"dados_{bairro_selecionado}_{ano1}_{ano2}.xlsx"
                 )
                 baixar_relatorio_completo(zip_buffer)
+
