@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Monitoramento em Tempo Real</title>
     <style>
+        /* Estilos conforme o código original */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
@@ -119,7 +120,6 @@
         }
 
         .right-sidebar {
-            
             width: 200px;
             background-color: rgba(0, 0, 0, 0.5);
             padding: 10px;
@@ -153,7 +153,6 @@
         <div id="map" class="map-container"></div>
         <div class="city-name">São Paulo/SP</div>
     </div>
-
     
     <div class="right-sidebar">
         
@@ -168,23 +167,69 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    fetch('http://127.0.0.1:5000/dados')
+    // Função para carregar e exibir os dados do JSON
+    fetch('dados.json')  // Caminho para o arquivo JSON
         .then(response => response.json())
         .then(data => {
             data.forEach(item => {
-                if (item.coords) {
+                // Coordenadas do bairro (adicione ou mapeie conforme necessário)
+                let coords = null;
+                const coordenadas = {
+                    'Liberdade': [-23.5547722, -46.6357083],
+                    'Mooca': [-23.5657, -46.6025],
+                    'Vila Mariana': [-23.5880, -46.6371],
+                    'Penha': [-23.5331, -46.4679],
+                    'Santana': [-23.4873, -46.6196],
+                    'Lapa': [-23.5371, -46.7302],
+                    'Pinheiros': [-23.5561, -46.6984],
+                    'Butantã': [-23.5841, -46.7306],
+                    'Capela do Socorro': [-23.7561, -46.6478],
+                    'Campo Limpo': [-23.6684, -46.7477],
+                    'São Mateus': [-23.6386, -46.4883],
+                    'Cidade Tiradentes': [-23.8264, -46.4811],
+                    'Parelheiros': [-23.7980, -46.7227],
+                    'Jabaquara': [-23.6445, -46.6350],
+                    'Se': [-23.5500, -46.6333]
+                    // Adicione outras coordenadas conforme necessário
+                };
+
+                // Obter coordenadas do bairro
+                if (coordenadas[item.bairro]) {
+                    coords = coordenadas[item.bairro];
+                }
+
+                if (coords) {
+                    // Determinar a cor do marcador com base no volume
+                    let color;
+                    if (item.volume > 30) {
+                        color = 'red';
+                    } else if (item.volume > 10) {
+                        color = 'yellow';
+                    } else {
+                        color = 'green';
+                    }
+
+                    // Converter volume de metros cúbicos para toneladas
+                    const volumeEmToneladas = item.volume; // Se for necessário, aplique a conversão aqui
+
                     const popupContent = `
                         <b>Bairro:</b> ${item.bairro}<br>
-                        <b>Tipo:</b> ${item.type}<br>
-                        <b>Volume:</b> ${item.volume} m³<br>
-                        <b>Ano:</b> ${item.year}
+                        <b>Volume:</b> ${volumeEmToneladas} t<br>
                     `;
-                    L.marker(item.coords).addTo(map).bindPopup(popupContent);
+
+                    // Adicionar marcador ao mapa
+                    L.circleMarker(coords, {
+                        color: color,
+                        radius: 8,
+                        fillColor: color,
+                        fillOpacity: 0.6
+                    }).addTo(map).bindPopup(popupContent);
                 }
             });
         })
         .catch(error => console.error('Erro ao carregar os dados:', error));
 
+    // Função de logout
     document.getElementById('logoutButton').addEventListener('click', function() {
         window.location.href = 'login.html';
     });
