@@ -128,6 +128,14 @@
             flex-direction: column;
             box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
         }
+
+        .item {
+            margin-bottom: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 5px;
+            border-radius: 5px;
+        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
@@ -153,81 +161,141 @@
         <div id="map" class="map-container"></div>
         <div class="city-name">São Paulo/SP</div>
     </div>
-    
+
     <div class="right-sidebar">
-        
+        <label for="yearSelect">Selecione o Ano:</label>
+        <select id="yearSelect">
+            <option value="">Escolha um ano</option>
+        </select>
+        <div id="sidebarContent"></div>
     </div>
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     const map = L.map('map').setView([-23.5505, -46.6333], 12);
+    const select = document.getElementById('yearSelect');
+    const rightSidebar = document.getElementById('sidebarContent');
+    let markers = [];
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Função para carregar e exibir os dados do JSON
-    fetch('dados.json')  // Caminho para o arquivo JSON
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(item => {
-                // Coordenadas do bairro (adicione ou mapeie conforme necessário)
-                let coords = null;
-                const coordenadas = {
-                    'Liberdade': [-23.5547722, -46.6357083],
-                    'Mooca': [-23.5657, -46.6025],
-                    'Vila Mariana': [-23.5880, -46.6371],
-                    'Penha': [-23.5331, -46.4679],
-                    'Santana': [-23.4873, -46.6196],
-                    'Lapa': [-23.5371, -46.7302],
-                    'Pinheiros': [-23.5561, -46.6984],
-                    'Butantã': [-23.5841, -46.7306],
-                    'Capela do Socorro': [-23.7561, -46.6478],
-                    'Campo Limpo': [-23.6684, -46.7477],
-                    'São Mateus': [-23.6386, -46.4883],
-                    'Cidade Tiradentes': [-23.8264, -46.4811],
-                    'Parelheiros': [-23.7980, -46.7227],
-                    'Jabaquara': [-23.6445, -46.6350],
-                    'Se': [-23.5500, -46.6333]
-                    // Adicione outras coordenadas conforme necessário
-                };
+    // Função para carregar e exibir os dados de acordo com o ano selecionado
+    function atualizarMapaEBarralateral(anoSelecionado) {
+        fetch('dados.json')  // Caminho para o arquivo JSON
+            .then(response => response.json())
+            .then(data => {
+                // Limpar os marcadores anteriores
+                markers.forEach(marker => map.removeLayer(marker));
+                markers = [];
 
-                // Obter coordenadas do bairro
-                if (coordenadas[item.bairro]) {
-                    coords = coordenadas[item.bairro];
-                }
+                // Limpar a barra lateral
+                rightSidebar.innerHTML = '';
 
-                if (coords) {
-                    // Determinar a cor do marcador com base no volume
-                    let color;
-                    if (item.volume > 30) {
-                        color = 'red';
-                    } else if (item.volume > 10) {
-                        color = 'yellow';
-                    } else {
-                        color = 'green';
+                // Filtrar os dados para o ano selecionado
+                const dadosAno = data.filter(item => item.year == anoSelecionado);
+
+                dadosAno.forEach(item => {
+                    // Coordenadas do bairro (adicione ou mapeie conforme necessário)
+                    let coords = null;
+                    const coordenadas = {
+                        'Liberdade': [-23.5547722, -46.6357083],
+                        'Mooca': [-23.5657, -46.6025],
+                        'Vila Mariana': [-23.5880, -46.6371],
+                        'Penha': [-23.5331, -46.4679],
+                        'Santana': [-23.4873, -46.6196],
+                        'Lapa': [-23.5371, -46.7302],
+                        'Pinheiros': [-23.5561, -46.6984],
+                        'Butantã': [-23.5841, -46.7306],
+                        'Capela do Socorro': [-23.7561, -46.6478],
+                        'Campo Limpo': [-23.6684, -46.7477],
+                        'São Mateus': [-23.6386, -46.4883],
+                        'Cidade Tiradentes': [-23.8264, -46.4811],
+                        'Parelheiros': [-23.7980, -46.7227],
+                        'Jabaquara': [-23.6445, -46.6350],
+                        'Se': [-23.5500, -46.6333]
+                    };
+
+                    // Obter coordenadas do bairro
+                    if (coordenadas[item.bairro]) {
+                        coords = coordenadas[item.bairro];
                     }
 
-                    // Converter volume de metros cúbicos para toneladas
-                    const volumeEmToneladas = item.volume; // Se for necessário, aplique a conversão aqui
+                    if (coords) {
+                        // Determinar a cor do marcador com base no volume
+                        let color;
+                        let nivel;
+                        if (item.volume > 30) {
+                            color = 'red';
+                            nivel = 'Crítico';
+                        } else if (item.volume > 10) {
+                            color = 'yellow';
+                            nivel = 'Moderado';
+                        } else {
+                            color = 'green';
+                            nivel = 'Baixo';
+                        }
 
-                    const popupContent = `
-                        <b>Bairro:</b> ${item.bairro}<br>
-                        <b>Volume:</b> ${volumeEmToneladas} t<br>
-                    `;
+                        const popupContent = `
+                            <b>Bairro:</b> ${item.bairro}<br>
+                            <b>Volume:</b> ${item.volume} toneladas<br>
+                        `;
 
-                    // Adicionar marcador ao mapa
-                    L.circleMarker(coords, {
-                        color: color,
-                        radius: 8,
-                        fillColor: color,
-                        fillOpacity: 0.6
-                    }).addTo(map).bindPopup(popupContent);
-                }
-            });
-        })
-        .catch(error => console.error('Erro ao carregar os dados:', error));
+                                                    // Adicionar marcador ao mapa
+                                                    const marker = L.circleMarker(coords, {
+                                color: color,
+                                radius: 8,
+                                fillColor: color,
+                                fillOpacity: 0.6
+                            }).addTo(map).bindPopup(popupContent);
+
+                            // Armazenar o marcador para poder removê-lo depois
+                            markers.push(marker);
+
+                            // Adicionar a informação do bairro na barra lateral (sem cores)
+                            const itemDiv = document.createElement('div');
+                            itemDiv.classList.add('item');
+                            itemDiv.innerHTML = `${item.bairro} - ${nivel}`;
+                            rightSidebar.appendChild(itemDiv);
+                        }
+                    });
+                })
+                .catch(error => console.error('Erro ao carregar os dados:', error));
+    }
+
+    // Função de filtro de ano
+    function carregarAnos() {
+        fetch('dados.json')
+            .then(response => response.json())
+            .then(data => {
+                const anos = [...new Set(data.map(item => item.year))]; // Obtém anos únicos
+                anos.forEach(ano => {
+                    const option = document.createElement('option');
+                    option.value = ano;
+                    option.textContent = ano;
+                    select.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Erro ao carregar os anos:', error));
+    }
+
+    // Chama a função para carregar os anos ao iniciar a página
+    carregarAnos();
+
+    // Adicionar evento de mudança no filtro de ano
+    select.addEventListener('change', (e) => {
+        const anoSelecionado = e.target.value;
+        if (anoSelecionado) {
+            atualizarMapaEBarralateral(anoSelecionado);
+        } else {
+            // Se nenhum ano for selecionado, limpar o mapa e a barra lateral
+            markers.forEach(marker => map.removeLayer(marker));
+            markers = [];
+            rightSidebar.innerHTML = '';
+        }
+    });
 
     // Função de logout
     document.getElementById('logoutButton').addEventListener('click', function() {
@@ -237,3 +305,5 @@
 
 </body>
 </html>
+
+                           
