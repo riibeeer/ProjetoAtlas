@@ -1,10 +1,10 @@
 import streamlit as st
 import pandas as pd
 
-# Definindo a configuração da página no início
+
 st.set_page_config(page_title="Alertas de Resíduos", layout="wide")
 
-# CSS para customizar a aparência
+
 st.markdown(
     """
     <style>
