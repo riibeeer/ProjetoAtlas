@@ -211,23 +211,23 @@
             const longitude = document.getElementById('longitude').value;
 
             if (areaName && latitude && longitude) {
-                // Criar um objeto com o nome e as coordenadas
+                
                 const area = {
                     name: areaName,
                     coordinates: [parseFloat(latitude), parseFloat(longitude)]
                 };
 
-                // Recuperar as áreas existentes do localStorage, se houver
+                
                 const areas = JSON.parse(localStorage.getItem('areas')) || [];
                 areas.push(area);
 
-                // Salvar de volta no localStorage
+                
                 localStorage.setItem('areas', JSON.stringify(areas));
 
-                // Renderizar a lista de áreas cadastradas
+                
                 renderAreaList();
 
-                // Limpar os campos do formulário
+                
                 document.getElementById('areaName').value = '';
                 document.getElementById('latitude').value = '';
                 document.getElementById('longitude').value = '';
@@ -238,21 +238,21 @@
 
         function removeArea(index) {
             const areas = JSON.parse(localStorage.getItem('areas')) || [];
-            areas.splice(index, 1); // Remover a área selecionada
-            localStorage.setItem('areas', JSON.stringify(areas)); // Salvar as áreas atualizadas
-            renderAreaList(); // Atualizar a lista
+            areas.splice(index, 1); 
+            localStorage.setItem('areas', JSON.stringify(areas)); 
+            renderAreaList(); 
         }
 
         function renderAreaList() {
             const areaList = document.getElementById('areaList');
-            areaList.innerHTML = ''; // Limpar a lista
+            areaList.innerHTML = ''; 
 
             const areas = JSON.parse(localStorage.getItem('areas')) || [];
             areas.forEach((area, index) => {
                 const listItem = document.createElement('li');
                 listItem.textContent = `${area.name} (Lat: ${area.coordinates[0]}, Long: ${area.coordinates[1]})`;
 
-                // Botão de remover
+                
                 const removeButton = document.createElement('button');
                 removeButton.textContent = 'Remover';
                 removeButton.style.marginLeft = '10px';
@@ -268,12 +268,12 @@
             });
         }
 
-                // Chamar renderAreaList quando o DOM for carregado
+                
                 document.addEventListener('DOMContentLoaded', function () {
             renderAreaList();
         });
 
-        // Função para sair
+        
         document.querySelector('.logout').addEventListener('click', function () {
             window.location.href = 'login.html';
         });

@@ -78,7 +78,7 @@ def gerar_arquivos_zip_completos(imagem_buffers, dados, nomes_arquivos_imagem, n
         for imagem_buffer, nome_arquivo_imagem in zip(imagem_buffers, nomes_arquivos_imagem):
             zip_file.writestr(nome_arquivo_imagem, imagem_buffer.read())
         
-        # Criar e adicionar o arquivo Excel com os dados
+        
         with zip_file.open(nome_arquivo_excel, 'w') as f:
             with pd.ExcelWriter(f, engine='xlsxwriter') as writer:
                 dados.to_excel(writer, sheet_name='Dados', index=False)
@@ -96,7 +96,7 @@ def baixar_relatorio_completo(zip_buffer):
     )
 
 
-# Streamlit Page Setup
+
 st.set_page_config(page_title="Tela de Relatórios - Resíduos", layout="wide")
 st.title("Relatórios de Resíduos")
 
@@ -142,7 +142,7 @@ if df is not None:
                 with col2:
                     st.plotly_chart(fig2, use_container_width=True, key=f"grafico_pizza_{bairro_selecionado}_{ano2}_2")
 
-                # Preparar para exportar gráficos
+                
                 imagem_buffer1 = io.BytesIO()
                 imagem_buffer2 = io.BytesIO()
                 fig1.write_image(imagem_buffer1, format="png")
@@ -150,7 +150,7 @@ if df is not None:
                 imagem_buffer1.seek(0)
                 imagem_buffer2.seek(0)
 
-                # Gerar arquivo zip com gráficos e dados
+                
                 zip_buffer = gerar_arquivos_zip_completos(
                     [imagem_buffer1, imagem_buffer2], 
                     df[(df['bairro'] == bairro_selecionado) & (df['year'].isin([ano1, ano2]))], 

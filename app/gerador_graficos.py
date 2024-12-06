@@ -14,16 +14,16 @@ class GeradorDeGraficos:
         plt.xticks(rotation=45, ha="right")
         plt.tight_layout()
         
-        # Salvar imagem em buffer
+        
         buffer = io.BytesIO()
         plt.savefig(buffer, format="png")
         buffer.seek(0)
-        plt.close()  # Fecha a figura para liberar memória
+        plt.close()  
         return buffer
 
     @staticmethod
     def grafico_pizza(dados, titulo):
-        """Gera um gráfico de pizza e retorna como buffer de imagem."""
+        
         plt.figure(figsize=(8, 8))
         plt.pie(
             dados,
@@ -35,9 +35,9 @@ class GeradorDeGraficos:
         plt.title(titulo)
         plt.axis("equal")
         
-        # Salvar imagem em buffer
+        
         buffer = io.BytesIO()
         plt.savefig(buffer, format="png")
         buffer.seek(0)
-        plt.close()  # Fecha a figura para liberar memória
+        plt.close()  
         return buffer

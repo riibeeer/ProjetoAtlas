@@ -182,24 +182,24 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Função para carregar e exibir os dados de acordo com o ano selecionado
+    
     function atualizarMapaEBarralateral(anoSelecionado) {
-        fetch('dados.json')  // Caminho para o arquivo JSON
+        fetch('dados.json')  
             .then(response => response.json())
             .then(data => {
-                // Limpar os marcadores anteriores
+                
                 markers.forEach(marker => map.removeLayer(marker));
                 markers = [];
 
-                // Limpar a barra lateral
+                
                 rightSidebar.innerHTML = '';
                 bairrosExibidos.clear();
 
-                // Filtrar os dados para o ano selecionado
+                
                 const dadosAno = data.filter(item => item.year == anoSelecionado);
 
                 dadosAno.forEach(item => {
-                    // Coordenadas do bairro (adicione ou mapeie conforme necessário)
+                    
                     const coordenadas = {
                         'Liberdade': [-23.5547722, -46.6357083],
                         'Mooca': [-23.5657, -46.6025],
@@ -218,11 +218,11 @@
                         'Se': [-23.5500, -46.6333]
                     };
 
-                                        // Obter coordenadas do bairro
+                                        
                                         const coords = coordenadas[item.bairro];
                     
                     if (coords && !bairrosExibidos.has(item.bairro)) {
-                        // Determinar a cor do marcador com base no volume
+                        
                         let color;
                         let nivel;
                         if (item.volume > 30) {
@@ -236,13 +236,13 @@
                             nivel = 'Baixo';
                         }
 
-                        // Popup do marcador
+                        
                         const popupContent = `
                             <b>Bairro:</b> ${item.bairro}<br>
                             <b>Volume:</b> ${item.volume} toneladas<br>
                         `;
 
-                        // Adicionar marcador ao mapa
+                        
                         const marker = L.circleMarker(coords, {
                             color: color,
                             radius: 8,
@@ -250,16 +250,16 @@
                             fillOpacity: 0.6
                         }).addTo(map).bindPopup(popupContent);
 
-                        // Armazenar o marcador para poder removê-lo depois
+                        
                         markers.push(marker);
 
-                        // Adicionar a informação do bairro na barra lateral (sem cores)
+                        
                         const itemDiv = document.createElement('div');
                         itemDiv.classList.add('item');
                         itemDiv.innerHTML = `${item.bairro} - ${nivel}`;
                         rightSidebar.appendChild(itemDiv);
 
-                        // Marcar o bairro como exibido para evitar duplicação
+                        
                         bairrosExibidos.add(item.bairro);
                     }
                 });
@@ -267,12 +267,12 @@
             .catch(error => console.error('Erro ao carregar os dados:', error));
     }
 
-    // Função de filtro de ano
+    
     function carregarAnos() {
         fetch('dados.json')
             .then(response => response.json())
             .then(data => {
-                const anos = [...new Set(data.map(item => item.year))]; // Obtém anos únicos
+                const anos = [...new Set(data.map(item => item.year))]; 
                 anos.forEach(ano => {
                     const option = document.createElement('option');
                     option.value = ano;
@@ -283,23 +283,23 @@
             .catch(error => console.error('Erro ao carregar os anos:', error));
     }
 
-    // Chama a função para carregar os anos ao iniciar a página
+    
     carregarAnos();
 
-    // Adicionar evento de mudança no filtro de ano
+    
     select.addEventListener('change', (e) => {
         const anoSelecionado = e.target.value;
         if (anoSelecionado) {
             atualizarMapaEBarralateral(anoSelecionado);
         } else {
-            // Se nenhum ano for selecionado, limpar o mapa e a barra lateral
+            
             markers.forEach(marker => map.removeLayer(marker));
             markers = [];
             rightSidebar.innerHTML = '';
         }
     });
 
-    // Função de logout
+    
     document.getElementById('logoutButton').addEventListener('click', function() {
         window.location.href = 'login.html';
     });
