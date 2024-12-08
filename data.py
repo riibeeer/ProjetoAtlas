@@ -3,32 +3,32 @@ import io
 import matplotlib.pyplot as plt
 from app.sistema import SistemaResiduos
 
-# Inicializa o sistema de resíduos
+
 sistema = SistemaResiduos("data/planilhaDados.xlsx")
 
-# Tenta carregar os dados da planilha
+
 try:
     df = sistema.gerenciador_dados.carregar_dados_excel()
 except FileNotFoundError:
     st.error("Arquivo de dados não encontrado. Verifique o caminho.")
     st.stop()
 
-# Configuração inicial da página
+
 st.set_page_config(page_title="Dashboard de Resíduos", layout="wide")
 st.title("Dashboard de Resíduos")
 
-# Variáveis disponíveis nos dados
+
 anos_disponiveis = df["year"].unique()
 bairros_disponiveis = df["bairro"].unique()
 
-# Seleção do tipo de análise
+
 tipo_analise = st.selectbox("Escolha o tipo de análise", ["Análise por Volume", "Análise por Tipo", "Tendência ao Longo do Tempo", "Comparação entre Bairros"])
 
-# Seleção de ano, se aplicável
+
 if tipo_analise != "Tendência ao Longo do Tempo":
     ano_selecionado = st.selectbox("Selecione o ano", sorted(anos_disponiveis))
 
-# Função para gerar gráfico de comparação entre bairros
+
 def gerar_grafico_comparacao_bairros(df, bairros_selecionados, ano_selecionado):
     dados_filtrados = df[(df["bairro"].isin(bairros_selecionados)) & (df["year"] == ano_selecionado)]
     dados_agrupados = dados_filtrados.groupby('bairro')['volume'].sum()
@@ -46,7 +46,7 @@ def gerar_grafico_comparacao_bairros(df, bairros_selecionados, ano_selecionado):
     grafico_buffer.seek(0)
     return grafico_buffer
 
-# Função para gerar gráfico de tendência ao longo do tempo
+
 def gerar_grafico_tendencia(df, bairro_selecionado):
     dados_filtrados = df[df["bairro"] == bairro_selecionado]
     dados_agrupados = dados_filtrados.groupby("year")["volume"].sum()
@@ -63,7 +63,7 @@ def gerar_grafico_tendencia(df, bairro_selecionado):
     grafico_buffer.seek(0)
     return grafico_buffer
 
-# Lógica para cada tipo de análise
+
 if tipo_analise == "Análise por Volume":
     if st.button("Gerar Gráfico de Volume"):
         dados_agrupados = sistema.gerenciador_dados.agrupar_dados(["bairro", "year"], "volume")
