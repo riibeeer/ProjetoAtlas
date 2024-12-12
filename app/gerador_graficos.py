@@ -5,7 +5,7 @@ import io
 class GeradorDeGraficos:
     @staticmethod
     def grafico_barras(dados, titulo, xlabel, ylabel):
-        """Gera um gráfico de barras e retorna como buffer de imagem."""
+        
         plt.figure(figsize=(10, 6))
         dados.plot(kind="bar", color="skyblue")
         plt.title(titulo)

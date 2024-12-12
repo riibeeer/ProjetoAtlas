@@ -8,7 +8,7 @@ class SistemaResiduos:
         self.gerador_graficos = GeradorDeGraficos()
 
     def executar(self):
-        """Executa o sistema para carregar, processar dados e gerar gráficos."""
+        
         
         df = self.gerenciador_dados.carregar_dados_excel()
 
@@ -25,7 +25,7 @@ class SistemaResiduos:
 
         grafico_pizza = self.gerador_graficos.grafico_pizza(
             agrupado.set_index("bairro")["volume"],
-            "Distribuição de Resíduos por Bairro"
+            
         )
 
         
